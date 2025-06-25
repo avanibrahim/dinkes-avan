@@ -82,87 +82,94 @@ export default function DiagnosisForm() {
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 pt-32 pb-20">
+    <section className="max-w-7xl mx-auto px-4 pt-44">
   <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
     
     {/* 🖼 ILUSTRASI KESEHATAN */}
-    <div className="flex justify-center items-start">
+    <div className="flex justify-center items-start border-radius-xl overflow-hidden">
       <img
-        src="/img/diagnosis-illustration.png"
+        src="/img/diagnosis.png"
         alt="Ilustrasi Diagnosis"
         className="w-full max-w-sm md:max-w-md object-contain"
       />
     </div>
 
     {/* 📋 FORM DIAGNOSIS - Scrollable */}
-    <div className="h-[70vh] overflow-y-auto pr-2 scroll-smooth">
-      <h1 className="text-3xl sm:text-4xl font-bold text-teal-600 mb-3">
-        Form Diagnosa Penyakit
-      </h1>
-      <p className="text-gray-600 mb-6 text-sm sm:text-base leading-relaxed">
-        Jawablah pertanyaan di bawah ini sesuai dengan kondisi yang Anda alami untuk membantu sistem dalam mendiagnosis kemungkinan penyakit secara cepat dan akurat.
-      </p>
+    <div className="max-w-4xl mx-auto px-4 pt-13">
+  {/* Header Tetap di Atas */}
+  <div className="mb-6">
+    <h1 className="text-3xl sm:text-4xl font-bold text-teal-600 mb-2">
+      Form Diagnosa Penyakit
+    </h1>
+    <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+      Jawablah pertanyaan di bawah ini sesuai dengan kondisi yang Anda alami untuk membantu sistem dalam mendiagnosis kemungkinan penyakit secara cepat dan akurat.
+    </p>
+  </div>
 
-      <div className="space-y-6">
-        {questions.map((q, index) => (
-          <div
-            key={q.id}
-            className="p-4 sm:p-5 bg-white border border-gray-200 rounded-xl shadow-sm transition hover:shadow-md"
+  {/* Bagian yang Bisa Discroll */}
+  <div className="h-[70vh] overflow-y-auto pr-2 scroll-smooth space-y-6">
+    {questions.map((q, index) => (
+      <div
+        key={q.id}
+        className="p-4 sm:p-5 bg-white border border-gray-200 rounded-xl shadow-sm transition hover:shadow-md"
+      >
+        <p className="font-medium text-gray-800 mb-3">
+          {index + 1}. {q.text}
+        </p>
+        <div className="flex gap-4">
+          <button
+            className={cn(
+              "flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm transition",
+              answers[q.id] === true
+                ? "bg-teal-600 text-white shadow"
+                : "bg-gray-100 text-gray-700 hover:bg-teal-100"
+            )}
+            onClick={() => handleAnswerChange(q.id, true)}
           >
-            <p className="font-medium text-gray-800 mb-3">
-              {index + 1}. {q.text}
-            </p>
-            <div className="flex gap-4">
-              <button
-                className={cn(
-                  "flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm transition",
-                  answers[q.id] === true
-                    ? "bg-teal-600 text-white shadow"
-                    : "bg-gray-100 text-gray-700 hover:bg-teal-100"
-                )}
-                onClick={() => handleAnswerChange(q.id, true)}
-              >
-                <CheckCircle size={18} /> Ya
-              </button>
-              <button
-                className={cn(
-                  "flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm transition",
-                  answers[q.id] === false
-                    ? "bg-red-500 text-white shadow"
-                    : "bg-gray-100 text-gray-700 hover:bg-red-100"
-                )}
-                onClick={() => handleAnswerChange(q.id, false)}
-              >
-                <XCircle size={18} /> Tidak
-              </button>
-            </div>
-          </div>
-        ))}
+            <CheckCircle size={18} /> Ya
+          </button>
+          <button
+            className={cn(
+              "flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm transition",
+              answers[q.id] === false
+                ? "bg-red-500 text-white shadow"
+                : "bg-gray-100 text-gray-700 hover:bg-red-100"
+            )}
+            onClick={() => handleAnswerChange(q.id, false)}
+          >
+            <XCircle size={18} /> Tidak
+          </button>
+        </div>
       </div>
+    ))}
 
-      <div className="text-center mt-10">
-        <button
-          onClick={diagnose}
-          disabled={loading || !allAnswered}
-          className="bg-teal-600 text-white font-semibold text-lg px-6 py-3 rounded-xl shadow-md hover:bg-teal-700 transition disabled:opacity-50"
-        >
-          {loading ? "Memproses..." : "Lihat Hasil Diagnosis"}
-        </button>
-      </div>
+    {/* Tombol Submit di dalam scroll */}
+    <div className="text-center mt-10 pb-10">
+      <button
+        onClick={diagnose}
+        disabled={loading || !allAnswered}
+        className="bg-teal-600 text-white font-semibold text-lg px-6 py-3 rounded-xl shadow-md hover:bg-teal-700 transition disabled:opacity-50"
+      >
+        {loading ? "Memproses..." : "Lihat Hasil Diagnosis"}
+      </button>
     </div>
+  </div>
+</div>
+
+
   </div>
 
   {/* 🔽 HASIL DI BAWAH - Tetap horizontal */}
   <div className="mt-12">
     {result && (
-      <div className="w-full bg-white border border-gray-200 rounded-xl shadow-md p-6 mb-6">
+      <div className="w-full bg-transparant border border-gray-100 rounded-xl shadow-md p-6 mb-6">
         <ResultCard result={result} />
       </div>
     )}
 
     {mlPrediction && (
-      <div className="w-full p-6 bg-indigo-50 border border-indigo-200 rounded-xl shadow flex flex-col sm:flex-row items-center justify-between">
-        <div className="flex items-center gap-2 text-indigo-700 font-semibold text-lg mb-3 sm:mb-0">
+      <div className="w-full p-6 bg-teal-50 border border-indigo-100 rounded-xl shadow flex flex-col sm:flex-row items-center justify-between">
+        <div className="flex items-center gap-2 text-teal-700 font-semibold text-lg mb-3 sm:mb-0">
           <Bot size={20} /> Prediksi Machine Learning
         </div>
         <p className="text-gray-800 text-sm text-center sm:text-right whitespace-pre-line">
@@ -172,6 +179,7 @@ export default function DiagnosisForm() {
     )}
   </div>
 </section>
+
 
   );
 }

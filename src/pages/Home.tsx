@@ -1,15 +1,16 @@
-import NewsCarousel from "@/components/NewsCarousel";
-import GallerySection from "@/components/GallerySection";
-import DataPublicationSection from "@/components/DataPublicationSection";
+//import NewsCarousel from "@/components/NewsCarousel";
+//import GallerySection from "@/components/GallerySection";
+//import DataPublicationSection from "@/components/DataPublicationSection";
 import ContactSection from "@/components/ContactSection";
 import TiltedCard from '@/components/TiltedCard';
+
 
 const Home = () => (
   <>
     {/* Hero Section */}
-    <section className="flex flex-col md:flex-row justify-between items-start gap-12 py-24 px-6 max-w-7xl mx-auto animate-fade-in">
+    <section className="flex flex-col md:flex-row justify-between items-start gap-12 py-28 px-6 max-w-7xl mx-auto animate-fade-in">
     <div className="flex-1 flex flex-col justify-center items-start max-w-36rem">
-        <span className="bg-tealCustomLight text-tealCustom px-3 py-1 rounded-full text-xs mb-5 font-semibold tracking-wider select-none">
+        <span className="bg-teal-100 text-tealCustom px-3 py-1 rounded-full text-xs mb-5 font-semibold tracking-wider select-none">
           INFORMASI KESEHATAN
         </span>
         <h1 className="text-4xl md:text-6xl font-extrabold mb-6 text-tealCustom leading-tight">
@@ -28,19 +29,19 @@ const Home = () => (
           <li className="flex items-start gap-4">
             <span className="block w-3 h-3 rounded-full bg-sky-400 mt-2"></span>
             <span className="text-gray-700 leading-relaxed">
-              Statistik & visualisasi data terkini tingkat stunting di berbagai daerah.
+              Statistik & visualisasi data terkini tingkat HIV di berbagai daerah.
             </span>
           </li>
           <li className="flex items-start gap-4">
             <span className="block w-3 h-3 rounded-full bg-yellow-400 mt-2"></span>
             <span className="text-gray-700 leading-relaxed">
-              Kolaborasi antara masyarakat, tenaga kesehatan, dan pemerintah daerah.
+              Kolaborasi antara masyarakat, tenaga kesehatan, dalam pencegahan DBD.
             </span>
           </li>
         </ul>
         <a
           href="/monitoring"
-          className="inline-block bg-tealCustom hover:bg-tealCustomLighter text-white font-semibold rounded-lg px-8 py-3 shadow-md transition focus:outline-none focus:ring-4 focus:ring-tealCustomLight"
+          className="inline-block bg-tealCustom hover:bg-teal-900 text-white font-semibold rounded-lg px-8 py-3 shadow-md transition focus:outline-none focus:ring-4 focus:ring-tealCustomLight"
         >
           Lihat Data Monitoring
         </a>
@@ -96,14 +97,14 @@ const Home = () => (
       </div>
     </section>
 
-    {/* Berita & Informasi */}
-    <NewsCarousel />
+    {/* Berita & Informasi 
+    <NewsCarousel />*/}
 
-    {/* Galeri Kegiatan */}
-    <GallerySection />
+    {/* Galeri Kegiatan 
+    <GallerySection />*/}
 
-    {/* Publikasi Data */}
-    <DataPublicationSection />
+    {/* Publikasi Data 
+    <DataPublicationSection />*/}
 
     {/* Hubungi Kami */}
     <ContactSection />

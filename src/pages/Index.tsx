@@ -1,9 +1,8 @@
 
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { useLocation } from "react-router-dom";
 import Home from "./Home";
-import Tentang from "./Diagnosis";
+import Diagnosis from "./Diagnosis";
 import Berita from "./ScanQR";
 import Monitoring from "./Monitoring";
 
@@ -14,15 +13,14 @@ const Index = () => {
       <>
         <Navbar />
         <Home />
-        <Footer />
       </>
     );
   if (location.pathname === "/diagnosis")
     return (
       <>
         <Navbar />
-        <Tentang />
-        <Footer />
+        <Diagnosis />
+       
       </>
     );
   if (location.pathname === "/scanqr")
@@ -30,7 +28,7 @@ const Index = () => {
       <>
         <Navbar />
         <Berita />
-        <Footer />
+       
       </>
     );
   if (location.pathname === "/monitoring")
@@ -38,7 +36,7 @@ const Index = () => {
       <>
         <Navbar />
         <Monitoring />
-        <Footer />
+       
       </>
     );
   // fallback
@@ -46,7 +44,6 @@ const Index = () => {
     <>
       <Navbar />
       <Home />
-      <Footer />
     </>
   );
 };

@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "@/components/Navbar"; // Pastikan path sesuai lokasi Navbar
+import Footer from "@/components/Footer";
 
 // Lazy load halaman
 const Index = lazy(() => import("./pages/Index"));
@@ -20,7 +21,7 @@ const App = () => (
       <Toaster />
       <BrowserRouter>
         <Navbar /> {/* Navbar selalu tampil */}
-        <div className="min-h-screen w-full overflow-x-hidden pt-[var(--navbar-height)]">
+        <div className="min-h-screen w-full bg-gradient-to-b from-[#e6f7f9] to-white overflow-x-hidden">
           {/* Jika navbar fixed, beri padding top agar konten tidak tertutup */}
           <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
             <Routes>
@@ -32,6 +33,7 @@ const App = () => (
             </Routes>
           </Suspense>
         </div>
+        <Footer />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

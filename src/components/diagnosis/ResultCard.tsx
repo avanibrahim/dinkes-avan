@@ -2,8 +2,8 @@ import { Microscope } from "lucide-react";
 
 export default function ResultCard({ result }: { result: string }) {
   return (
-    <div className="mt-10 bg-blue-50 border border-blue-200 rounded-xl p-6 shadow text-center">
-      <h2 className="text-xl font-bold text-blue-700 mb-4 flex items-center justify-center gap-2">
+    <div className="mt-10 bg-teal-50 border border-indigo-100 rounded-xl p-6 shadow text-center">
+      <h2 className="text-xl font-bold text-teal-700 mb-4 flex items-center justify-center gap-2">
         <Microscope size={24} /> Hasil Diagnosis
       </h2>
       <p className="text-gray-800 whitespace-pre-line">{result}</p>

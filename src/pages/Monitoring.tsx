@@ -1,89 +1,32 @@
+import React from "react";
+import { Construction } from "lucide-react";
 
-import { useEffect, useState } from "react";
-import BarChartStunting from "@/components/BarChartStunting";
-import DonutChartStunting from "@/components/DonutChartStunting";
-import FilterDropdown from "@/components/FilterDropdown";
-import { RefreshCw } from "lucide-react";
-
-type DataStub = {
-  daerah: string;
-  persentase: number;
-  jumlah: number;
-};
-
-const daerahList = ["Semua", "Kabupaten A", "Kabupaten B", "Kabupaten C", "Kabupaten D", "Kabupaten E"];
-
-function getRandomData() {
-  return [
-    { daerah: "Kabupaten A", persentase: +(12 + Math.random()*3).toFixed(1), jumlah: 140 + Math.floor(Math.random()*15) },
-    { daerah: "Kabupaten B", persentase: +(28 + Math.random()*4).toFixed(1), jumlah: 225 + Math.floor(Math.random()*22) },
-    { daerah: "Kabupaten C", persentase: +(21 + Math.random()*5).toFixed(1), jumlah: 178 + Math.floor(Math.random()*10) },
-    { daerah: "Kabupaten D", persentase: +(8 + Math.random()*2).toFixed(1), jumlah: 66 + Math.floor(Math.random()*3) },
-    { daerah: "Kabupaten E", persentase: +(33 + Math.random()*2).toFixed(1), jumlah: 269 + Math.floor(Math.random()*20) }
-  ];
-}
-
-const Monitoring = () => {
-  const [data, setData] = useState<DataStub[]>(getRandomData());
-  const [selected, setSelected] = useState<string>("Semua");
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setLoading(true);
-      setTimeout(() => {
-        setData(getRandomData());
-        setLoading(false);
-      }, 800);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const filteredData = selected === "Semua" ? data : data.filter(d => d.daerah === selected);
-
+const UnderMaintenancePage = () => {
   return (
-    <section className="max-w-6xl mx-auto py-10 px-2 sm:px-4 animate-fade-in">
-      <h1 className="text-2xl md:text-4xl font-bold mb-2 text-blue-700 text-center md:text-left">
-        Monitoring Data Stunting
-      </h1>
-      <p className="text-muted-foreground mb-6 text-base md:text-lg flex items-center gap-2 justify-center md:justify-start">
-        Data diperbarui otomatis setiap <strong>10 detik</strong>.
-        <RefreshCw className={loading ? "animate-spin" : ""} size={18} aria-label="Memuat data..." />
-      </p>
+    <section className="min-h-screen flex items-center justify-center px-6 py-16 bg-gradient-to-b from-[#e6f7f9] to-white text-center">
+      <div className="max-w-lg w-full space-y-8">
+        {/* Judul */}
+        <h1 className="text-3xl md:text-4xl font-bold text-[#229b94] flex flex-col justify-center items-center gap-4">
+          <Construction className="w-12 h-12 text-black" />
+          Pages Maintenance
+        </h1>
 
-      <div className="flex flex-wrap items-center gap-2 md:gap-4 mb-6 md:mb-8">
-        <span className="font-semibold text-sm md:text-base">Filter Daerah:</span>
-        <FilterDropdown options={daerahList} value={selected} onChange={() => {}} />
-        {/* Dropdown belum aktif (dummy) */}
-      </div>
 
-      {/* Responsive: stack on mobile (col) & grid 2 cols on large */}
-      <div className="flex flex-col gap-5 mb-6 lg:grid lg:grid-cols-2 lg:gap-8">
-        <div className="w-full">
-          <BarChartStunting data={filteredData}/>
-        </div>
-        <div className="w-full mt-6 lg:mt-0">
-          <DonutChartStunting data={data.map(d => ({ daerah: d.daerah, persentase: d.persentase }))}/>
-        </div>
-      </div>
+        {/* Deskripsi */}
+        <p className="text-gray-700 text-sm md:text-base">
+          Mohon maaf atas ketidaknyamanannya. Kami sedang melakukan pemeliharaan sistem untuk meningkatkan layanan. Silakan kembali lagi nanti.
+        </p>
 
-      <div className="bg-blue-50 text-blue-700 rounded-lg p-3 md:p-4 border text-center text-xs md:text-sm mx-auto max-w-full md:max-w-3xl">
-        <b>Keterangan:</b>
-        <span className="inline-block mx-1 md:mx-2">
-          <span className="inline-block w-3 h-3 rounded-full bg-red-500 mr-1 align-middle"></span>
-          Tinggi &ge; 30%
-        </span>
-        <span className="inline-block mx-1 md:mx-2">
-          <span className="inline-block w-3 h-3 rounded-full bg-yellow-400 mr-1 align-middle"></span>
-          Sedang &ge; 20%
-        </span>
-        <span className="inline-block mx-1 md:mx-2">
-          <span className="inline-block w-3 h-3 rounded-full bg-green-500 mr-1 align-middle"></span>
-          Rendah &lt; 20%
-        </span>
+        {/* Tombol kembali */}
+        <a
+          href="/"
+          className="inline-block mt-4 px-6 py-3 bg-[#229b94] hover:bg-[#229b94] text-white font-semibold rounded-lg transition"
+        >
+          Kembali ke Beranda
+        </a>
       </div>
     </section>
   );
 };
 
-export default Monitoring;
+export default UnderMaintenancePage;
