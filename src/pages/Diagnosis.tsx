@@ -1,207 +1,177 @@
 import React, { useState } from "react";
-import { BarChart3, CheckCircle, XCircle, AlertCircle, TrendingUp, HeartPulse, Shield, Microscope } from "lucide-react"; // Import ikon tambahan
-import { cn } from "@/lib/utils"; // Pastikan utilitas cn tersedia
+import { CheckCircle, XCircle, Microscope, Bot } from "lucide-react";
+import { cn } from "@/lib/utils";
+import ResultCard from "@/components/diagnosis/ResultCard";
 
-// Definisi pertanyaan dan aturan diagnosis (Basis Pengetahuan Sederhana)
+
 const questions = [
-  {
-    id: "q1",
-    text: "Apakah tinggi badan Anda tidak sesuai dengan usia (sangat pendek)?",
-    category: "stunting",
-  },
-  {
-    id: "q2",
-    text: "Apakah ada riwayat gizi buruk atau asupan nutrisi kurang sejak lahir?",
-    category: "stunting",
-  },
-  {
-    id: "q3",
-    text: "Apakah Anda mengalami penurunan berat badan drastis tanpa sebab jelas?",
-    category: "hiv",
-  },
-  {
-    id: "q4",
-    text: "Apakah Anda sering demam berkepanjangan (lebih dari 1 bulan)?",
-    category: "hiv",
-  },
-  {
-    id: "q5",
-    text: "Apakah Anda mengalami demam tinggi mendadak (di atas 38°C)?",
-    category: "dbd",
-  },
-  {
-    id: "q6",
-    text: "Apakah ada bintik-bintik merah di kulit atau pendarahan ringan (mimisan, gusi berdarah)?",
-    category: "dbd",
-  },
-  {
-    id: "q7",
-    text: "Apakah ada riwayat kontak dengan penderita HIV?",
-    category: "hiv",
-  },
-  {
-    id: "q8",
-    text: "Apakah tinggal di daerah yang banyak kasus DBD?",
-    category: "dbd",
-  },
-  // Tambahkan pertanyaan lain sesuai kebutuhan dan kompleksitas
+  { id: "q1", text: "Apakah tinggi badan Anda tidak sesuai dengan usia (sangat pendek)?", category: "stunting" },
+  { id: "q2", text: "Apakah ada riwayat gizi buruk atau asupan nutrisi kurang sejak lahir?", category: "stunting" },
+  { id: "q3", text: "Apakah anak Anda tidak mendapatkan ASI eksklusif selama 6 bulan pertama?", category: "stunting" },
+  { id: "q4", text: "Apakah Anda tinggal di lingkungan dengan sanitasi buruk?", category: "stunting" },
+
+  { id: "q5", text: "Apakah Anda mengalami penurunan berat badan drastis tanpa sebab jelas?", category: "hiv" },
+  { id: "q6", text: "Apakah Anda sering demam berkepanjangan (lebih dari 1 bulan)?", category: "hiv" },
+  { id: "q7", text: "Apakah ada riwayat kontak dengan penderita HIV?", category: "hiv" },
+  { id: "q8", text: "Apakah Anda mengalami kelelahan terus-menerus tanpa alasan?", category: "hiv" },
+
+  { id: "q9", text: "Apakah Anda mengalami demam tinggi mendadak (di atas 38°C)?", category: "dbd" },
+  { id: "q10", text: "Apakah ada bintik-bintik merah di kulit atau pendarahan ringan (mimisan, gusi berdarah)?", category: "dbd" },
+  { id: "q11", text: "Apakah tinggal di daerah yang banyak kasus DBD?", category: "dbd" },
+  { id: "q12", text: "Apakah Anda merasa nyeri otot dan sendi yang parah seperti gejala 'breakbone fever'?", category: "dbd" },
 ];
 
-const Diagnosis = () => {
-  const [answers, setAnswers] = useState<{ [key: string]: boolean }>({});
-  const [diagnosisResult, setDiagnosisResult] = useState<string | null>(null);
 
-  const handleAnswerChange = (questionId: string, answer: boolean) => {
-    setAnswers((prev) => ({ ...prev, [questionId]: answer }));
+export default function DiagnosisForm() {
+  const [answers, setAnswers] = useState<{ [key: string]: boolean }>({});
+  const [result, setResult] = useState<string | null>(null);
+  const [mlPrediction, setMlPrediction] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleAnswerChange = (id: string, value: boolean) => {
+    setAnswers((prev) => ({ ...prev, [id]: value }));
   };
 
-  const performDiagnosis = () => {
-    // Reset hasil diagnosis
-    setDiagnosisResult(null);
+  const allAnswered = questions.every((q) => answers.hasOwnProperty(q.id));
 
-    // Mesin Inferensi Sederhana
-    let stuntingScore = 0;
-    let hivScore = 0;
-    let dbdScore = 0;
+  const diagnose = async () => {
+    setLoading(true);
+    setResult(null);
+    setMlPrediction(null);
+
+    let stunting = 0, hiv = 0, dbd = 0, sehat = 0;
 
     questions.forEach((q) => {
-      if (answers[q.id]) { // Jika jawaban 'Ya'
-        if (q.category === "stunting") stuntingScore++;
-        if (q.category === "hiv") hivScore++;
-        if (q.category === "dbd") dbdScore++;
+      if (answers[q.id]) {
+        if (q.category === "stunting") stunting++;
+        if (q.category === "hiv") hiv++;
+        if (q.category === "dbd") dbd++;
+        if (q.category === "sehat") sehat++;
       }
     });
 
-    // Aturan Diagnosis
-    let result = "Hasil awal: Tidak terindikasi penyakit serius dari gejala yang diberikan.";
-    let hasSeriousSymptoms = false;
+    let resultText = "";
+    if (stunting >= 2) resultText += "Kemungkinan Stunting.\n";
+    if (hiv >= 2) resultText += "Kemungkinan HIV.\n";
+    if (dbd >= 2) resultText += "Kemungkinan DBD.\n";
+    if (!resultText) resultText = "Tidak ditemukan indikasi kuat ke arah Stunting, HIV, atau DBD.";
 
-    if (stuntingScore >= 2) { // 2 atau lebih gejala stunting
-      result = "Indikasi kemungkinan Stunting. Segera konsultasi ke fasilitas kesehatan terdekat.";
-      hasSeriousSymptoms = true;
-    }
-    if (hivScore >= 2) { // 2 atau lebih gejala HIV
-      result = (hasSeriousSymptoms ? result + "\n" : "") + "Indikasi kemungkinan HIV. Sangat disarankan untuk melakukan tes lebih lanjut.";
-      hasSeriousSymptoms = true;
-    }
-    if (dbdScore >= 2) { // 2 atau lebih gejala DBD
-      result = (hasSeriousSymptoms ? result + "\n" : "") + "Indikasi kemungkinan DBD. Segera periksakan diri ke dokter atau IGD.";
-      hasSeriousSymptoms = true;
+    setResult(resultText);
+
+    // 🔗 Kirim ke API FastAPI
+    try {
+      const res = await fetch("http://localhost:8000/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(
+          questions.reduce((acc, q) => {
+            acc[q.id] = answers[q.id] ? 1 : 0;
+            return acc;
+          }, {} as { [key: string]: number })
+        ),
+      });
+
+      const data = await res.json();
+      setMlPrediction(data.prediction);
+    } catch (err) {
+      console.error("Gagal prediksi ML:", err);
+      setMlPrediction("Gagal memuat prediksi dari model ML.");
     }
 
-    if (!hasSeriousSymptoms && Object.keys(answers).length === questions.length && Object.values(answers).every(ans => !ans)) {
-        result = "Berdasarkan gejala yang Anda pilih, tidak ada indikasi kuat ke arah Stunting, HIV, atau DBD. Namun, jika ada keluhan lain, konsultasikan ke profesional medis.";
-    } else if (!hasSeriousSymptoms) {
-        result = "Berdasarkan gejala yang dipilih, tidak ada indikasi kuat ke arah Stunting, HIV, atau DBD. Jika gejala berlanjut, konsultasi ke profesional medis.";
-    }
-
-
-    setDiagnosisResult(result);
+    setLoading(false);
   };
 
-  // Cek apakah semua pertanyaan sudah dijawab
-  const allAnswered = Object.keys(answers).length === questions.length;
-
   return (
-    <section className="flex flex-col items-center py-24 px-6 max-w-7xl mx-auto animate-fade-in min-h-screen">
-      <div className="flex-1 flex flex-col justify-center items-center max-w-2xl text-center mb-12">
-        <span className="bg-tealCustomLight text-tealCustom px-3 py-1 rounded-full text-xs mb-5 font-semibold tracking-wider select-none">
-          KUISIONER DIAGNOSA DINI
-        </span>
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-6 text-tealCustom leading-tight">
-          Cek Indikasi Awal Penyakit <br /> Stunting, HIV, dan DBD
-        </h1>
-        <p className="text-lg md:text-xl text-gray-700 mb-10 max-w-lg">
-          Jawab pertanyaan-pertanyaan berikut dengan jujur untuk mendapatkan indikasi awal potensi penyakit. Ingat, ini bukan diagnosis medis resmi.
-        </p>
-      </div>
+    <section className="max-w-7xl mx-auto px-4 pt-32 pb-20">
+  <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+    
+    {/* 🖼 ILUSTRASI KESEHATAN */}
+    <div className="flex justify-center items-start">
+      <img
+        src="/img/diagnosis-illustration.png"
+        alt="Ilustrasi Diagnosis"
+        className="w-full max-w-sm md:max-w-md object-contain"
+      />
+    </div>
 
-      <div className="w-full max-w-4xl bg-white rounded-xl shadow-lg p-8 space-y-6 border border-gray-100">
+    {/* 📋 FORM DIAGNOSIS - Scrollable */}
+    <div className="h-[70vh] overflow-y-auto pr-2 scroll-smooth">
+      <h1 className="text-3xl sm:text-4xl font-bold text-teal-600 mb-3">
+        Form Diagnosa Penyakit
+      </h1>
+      <p className="text-gray-600 mb-6 text-sm sm:text-base leading-relaxed">
+        Jawablah pertanyaan di bawah ini sesuai dengan kondisi yang Anda alami untuk membantu sistem dalam mendiagnosis kemungkinan penyakit secara cepat dan akurat.
+      </p>
+
+      <div className="space-y-6">
         {questions.map((q, index) => (
-          <div key={q.id} className="flex flex-col md:flex-row md:items-center justify-between p-4 bg-gray-50 rounded-lg shadow-sm">
-            <p className="font-semibold text-gray-800 text-lg mb-2 md:mb-0 md:w-3/4">
+          <div
+            key={q.id}
+            className="p-4 sm:p-5 bg-white border border-gray-200 rounded-xl shadow-sm transition hover:shadow-md"
+          >
+            <p className="font-medium text-gray-800 mb-3">
               {index + 1}. {q.text}
             </p>
-            <div className="flex space-x-4">
+            <div className="flex gap-4">
               <button
-                onClick={() => handleAnswerChange(q.id, true)}
                 className={cn(
-                  "px-5 py-2 rounded-lg font-medium transition-all flex items-center gap-2",
+                  "flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm transition",
                   answers[q.id] === true
-                    ? "bg-tealCustom text-white shadow-md"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                    ? "bg-teal-600 text-white shadow"
+                    : "bg-gray-100 text-gray-700 hover:bg-teal-100"
                 )}
+                onClick={() => handleAnswerChange(q.id, true)}
               >
-                <CheckCircle size={20} /> Ya
+                <CheckCircle size={18} /> Ya
               </button>
               <button
-                onClick={() => handleAnswerChange(q.id, false)}
                 className={cn(
-                  "px-5 py-2 rounded-lg font-medium transition-all flex items-center gap-2",
+                  "flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-sm transition",
                   answers[q.id] === false
-                    ? "bg-red-500 text-white shadow-md"
-                    : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                    ? "bg-red-500 text-white shadow"
+                    : "bg-gray-100 text-gray-700 hover:bg-red-100"
                 )}
+                onClick={() => handleAnswerChange(q.id, false)}
               >
-                <XCircle size={20} /> Tidak
+                <XCircle size={18} /> Tidak
               </button>
             </div>
           </div>
         ))}
+      </div>
 
-        <div className="text-center mt-8">
-          <button
-            onClick={performDiagnosis}
-            disabled={!allAnswered}
-            className={cn(
-              "bg-tealCustom text-white font-semibold rounded-lg px-8 py-3 shadow-md transition focus:outline-none focus:ring-4 focus:ring-tealCustomLight",
-              !allAnswered && "opacity-50 cursor-not-allowed"
-            )}
-          >
-            {allAnswered ? "Dapatkan Hasil Diagnosis" : "Jawab Semua Pertanyaan"}
-          </button>
+      <div className="text-center mt-10">
+        <button
+          onClick={diagnose}
+          disabled={loading || !allAnswered}
+          className="bg-teal-600 text-white font-semibold text-lg px-6 py-3 rounded-xl shadow-md hover:bg-teal-700 transition disabled:opacity-50"
+        >
+          {loading ? "Memproses..." : "Lihat Hasil Diagnosis"}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  {/* 🔽 HASIL DI BAWAH - Tetap horizontal */}
+  <div className="mt-12">
+    {result && (
+      <div className="w-full bg-white border border-gray-200 rounded-xl shadow-md p-6 mb-6">
+        <ResultCard result={result} />
+      </div>
+    )}
+
+    {mlPrediction && (
+      <div className="w-full p-6 bg-indigo-50 border border-indigo-200 rounded-xl shadow flex flex-col sm:flex-row items-center justify-between">
+        <div className="flex items-center gap-2 text-indigo-700 font-semibold text-lg mb-3 sm:mb-0">
+          <Bot size={20} /> Prediksi Machine Learning
         </div>
-
-        {diagnosisResult && (
-          <div className="mt-8 p-6 bg-blue-50 border border-blue-200 rounded-lg shadow-inner text-center">
-            <h2 className="text-2xl font-bold text-blue-700 mb-4 flex items-center justify-center gap-2">
-              <Microscope size={28} className="text-blue-500" /> Hasil Indikasi Awal:
-            </h2>
-            <p className="text-xl text-gray-800 whitespace-pre-line">
-              {diagnosisResult}
-            </p>
-            <p className="mt-4 text-sm text-gray-600">
-              *Disclaimer: Hasil ini adalah indikasi awal. Untuk diagnosis pasti, konsultasi dengan tenaga medis profesional.
-            </p>
-          </div>
-        )}
-      </div>
-
-      {/* Bagian edukasi/informasi tambahan bisa ditambahkan di sini */}
-      <div className="w-full max-w-4xl mt-12 bg-gray-50 rounded-xl shadow-lg p-8">
-        <h2 className="text-2xl font-bold text-tealCustom mb-6 flex items-center gap-3">
-          <Shield size={28} className="text-tealCustom" /> Pentingnya Pencegahan & Deteksi Dini
-        </h2>
-        <p className="text-gray-700 text-lg mb-4">
-          Pencegahan dan deteksi dini sangat krusial dalam mengatasi masalah kesehatan seperti stunting, HIV, dan DBD. Dengan memahami gejala awal dan mengambil tindakan yang tepat, kita dapat meningkatkan kualitas hidup dan mencegah komplikasi serius.
+        <p className="text-gray-800 text-sm text-center sm:text-right whitespace-pre-line">
+          {mlPrediction}
         </p>
-        <ul className="space-y-3 text-gray-700">
-          <li className="flex items-start gap-3">
-            <TrendingUp size={20} className="text-green-500 mt-1" />
-            <span>Peningkatan kualitas hidup anak melalui nutrisi yang adekuat.</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <HeartPulse size={20} className="text-red-500 mt-1" />
-            <span>Pengelolaan HIV yang lebih baik dengan penanganan cepat.</span>
-          </li>
-          <li className="flex items-start gap-3">
-            <Shield size={20} className="text-blue-500 mt-1" />
-            <span>Perlindungan komunitas dari wabah DBD.</span>
-          </li>
-        </ul>
       </div>
-    </section>
-  );
-};
+    )}
+  </div>
+</section>
 
-export default Diagnosis;
+  );
+}

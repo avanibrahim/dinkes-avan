@@ -54,8 +54,8 @@ const Home = () => (
     containerWidth="400px"
     imageHeight="auto"
     imageWidth="400px"
-    rotateAmplitude={5}
-    scaleOnHover={1}
+    rotateAmplitude={12}
+    scaleOnHover={1.2}
     showMobileWarning={false}
     showTooltip={false}
     displayOverlayContent={true}
