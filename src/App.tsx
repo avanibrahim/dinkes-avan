@@ -15,7 +15,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 // ✅ Tambahkan lazy load halaman diagnosis per penyakit
 const DiagnosisStunting = lazy(() => import("./pages/diagnosis/Stunting"));
-const DiagnosisDBD = lazy(() => import("./pages/diagnosis/DBD"));
+const DiagnosisDBD = lazy(() => import("./pages/diagnosis/Dbd"));
 const DiagnosisHIV = lazy(() => import("./pages/diagnosis/Hiv"));
 
 const queryClient = new QueryClient();
