@@ -99,7 +99,7 @@ export default function DiagnosisForm() {
   {/* Header Tetap di Atas */}
   <div className="mb-6">
     <h1 className="text-3xl sm:text-4xl font-bold text-teal-600 mb-2">
-      Form Diagnosa Penyakit
+      Form Diagnosa Stunting
     </h1>
     <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
       Jawablah pertanyaan di bawah ini sesuai dengan kondisi yang Anda alami untuk membantu sistem dalam mendiagnosis kemungkinan penyakit secara cepat dan akurat.

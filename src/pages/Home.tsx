@@ -1,6 +1,6 @@
-//import NewsCarousel from "@/components/NewsCarousel";
-//import GallerySection from "@/components/GallerySection";
-//import DataPublicationSection from "@/components/DataPublicationSection";
+import NewsCarousel from "@/components/NewsCarousel";
+import GallerySection from "@/components/GallerySection";
+import DataPublicationSection from "@/components/DataPublicationSection";
 import ContactSection from "@/components/ContactSection";
 import TiltedCard from '@/components/TiltedCard';
 
@@ -8,9 +8,10 @@ import TiltedCard from '@/components/TiltedCard';
 const Home = () => (
   <>
     {/* Hero Section */}
+    <div className="w-full bg-gradient-to-b from-[#e6f7f9] to-white">
     <section className="flex flex-col md:flex-row justify-between items-start gap-12 py-28 px-6 max-w-7xl mx-auto animate-fade-in">
     <div className="flex-1 flex flex-col justify-center items-start max-w-36rem">
-        <span className="bg-teal-100 text-tealCustom px-3 py-1 rounded-full text-xs mb-5 font-semibold tracking-wider select-none">
+        <span className="bg-teal-200 text-tealCustom px-3 py-1 rounded-full text-xs mb-5 font-semibold tracking-wider select-none">
           INFORMASI KESEHATAN
         </span>
         <h1 className="text-4xl md:text-6xl font-extrabold mb-6 text-tealCustom leading-tight">
@@ -43,7 +44,7 @@ const Home = () => (
           href="/monitoring"
           className="inline-block bg-tealCustom hover:bg-teal-900 text-white font-semibold rounded-lg px-8 py-3 shadow-md transition focus:outline-none focus:ring-4 focus:ring-tealCustomLight"
         >
-          Lihat Data Monitoring
+          SCAN QR CODE
         </a>
       </div>
 
@@ -88,14 +89,15 @@ const Home = () => (
         </div>
         <div className="flex-1 flex justify-center">
           <img
-            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+            src="/img/beranda.png"
             alt="Anak sehat dan ceria"
-            className="w-full max-w-sm rounded-lg object-cover shadow-lg border border-gray-200"
+            className="w-26 max-w-sm rounded-lg object-cover"
             loading="lazy"
           />
         </div>
       </div>
     </section>
+    </div>
 
     {/* Berita & Informasi 
     <NewsCarousel />*/}

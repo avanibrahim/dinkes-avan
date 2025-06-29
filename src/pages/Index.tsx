@@ -1,13 +1,16 @@
-
 import Navbar from "@/components/Navbar";
 import { useLocation } from "react-router-dom";
 import Home from "./Home";
 import Diagnosis from "./Diagnosis";
 import Berita from "./ScanQR";
 import Monitoring from "./Monitoring";
+import Stunting from "./diagnosis/Stunting";
+import Dbd from "./diagnosis/DBD";
+import Hiv from "./diagnosis/Hiv";
 
 const Index = () => {
   const location = useLocation();
+
   if (location.pathname === "/")
     return (
       <>
@@ -15,31 +18,55 @@ const Index = () => {
         <Home />
       </>
     );
+
   if (location.pathname === "/diagnosis")
     return (
       <>
         <Navbar />
         <Diagnosis />
-       
       </>
     );
+
   if (location.pathname === "/scanqr")
     return (
       <>
         <Navbar />
         <Berita />
-       
       </>
     );
+
   if (location.pathname === "/monitoring")
     return (
       <>
         <Navbar />
         <Monitoring />
-       
       </>
     );
-  // fallback
+
+  if (location.pathname === "/stunting")
+    return (
+      <>
+        <Navbar />
+        <Stunting />
+      </>
+    );
+
+  if (location.pathname === "/dbd")
+    return (
+      <>
+        <Navbar />
+        <Dbd />
+      </>
+    );
+
+  if (location.pathname === "/hiv")
+    return (
+      <>
+        <Navbar />
+        <Hiv />
+      </>
+    );
+
   return (
     <>
       <Navbar />

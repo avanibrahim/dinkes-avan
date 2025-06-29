@@ -12,9 +12,11 @@ import { Link, useLocation } from "react-router-dom";
 
 const menu = [
   { label: "Beranda", href: "/" },
-  { label: "Diagnosis", href: "/diagnosis" },
-  { label: "Scan QR", href: "/scanqr" },
-  { label: "Monitoring", href: "/monitoring" },
+//  { label: "Diagnosis", href: "/diagnosis" },
+{ label: "Stunting", href: "/diagnosis-stunting" },
+{ label: "DBD", href: "/diagnosis-dbd" },
+{ label: "HIV", href: "/diagnosis-hiv" },
+{ label: "Scan QR", href: "/scanqr" },
 ];
 
 const Navbar = () => {
