@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import basicSsl from "@vitejs/plugin-basic-ssl";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
@@ -8,10 +7,10 @@ import { componentTagger } from "lovable-tagger";
 export default defineConfig(({ mode }) => {
   return {
     server: {
-      https: true,
+      https: false, // ❌ false saat deploy (Vercel sudah pakai HTTPS)
       host: "0.0.0.0",
       port: 8080,
-    },
+    },    
     plugins: [
       react(),
       basicSsl(),
