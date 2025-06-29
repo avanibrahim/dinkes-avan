@@ -2,22 +2,23 @@ import React, { useEffect } from "react";
 import { toast } from "sonner"; // Kalau kamu pakai Sonner untuk notifikasi
 
 export default function ARViewer() {
-  useEffect(() => {
-    // 🔔 Notif ketika halaman pertama kali load
-    toast.info("Izinkan akses kamera agar fitur AR dapat digunakan");
-
-    // ✅ Otomatis matikan kamera saat user pindah halaman
-    return () => {
-      const streams = (document.querySelector("video")?.srcObject as MediaStream)?.getTracks();
-      if (streams) {
-        streams.forEach((track) => {
-          if (track.readyState === "live") {
-            track.stop(); // ⛔ Matikan kamera
-          }
-        });
-      }
-    };
-  }, []);
+    useEffect(() => {
+        toast.info("Izinkan akses kamera agar fitur AR dapat digunakan");
+      
+        return () => {
+          // Brutal cleanup all video stream
+          navigator.mediaDevices.enumerateDevices().then(() => {
+            const videos = document.querySelectorAll("video");
+            videos.forEach((video) => {
+              const stream = video.srcObject as MediaStream;
+              if (stream) {
+                stream.getTracks().forEach((track) => track.stop());
+              }
+            });
+          });
+        };
+      }, []);
+      
 
   return (
     <div className="w-full min-h-screen bg-white">

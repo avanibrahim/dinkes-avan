@@ -1,24 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function ScanQR() {
-  const [active, setActive] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
-  const handleStart = () => {
-    setActive(true); // render a-scene setelah user klik
-  };
+  // ⬇️ Load skrip eksternal hanya saat komponen dimount
+  useEffect(() => {
+    toast.info("Izinkan akses kamera untuk mulai AR");
+
+    const loadScripts = async () => {
+      // Cegah duplikat load
+      if (document.querySelector("#aframe-script")) return setLoaded(true);
+
+      const aframe = document.createElement("script");
+      aframe.src = "https://aframe.io/releases/1.4.2/aframe.min.js";
+      aframe.id = "aframe-script";
+      aframe.onload = () => {
+        const arjs = document.createElement("script");
+        arjs.src = "https://cdn.jsdelivr.net/gh/AR-js-org/AR.js/aframe/build/aframe-ar.min.js";
+        arjs.onload = () => setLoaded(true);
+        document.body.appendChild(arjs);
+      };
+      document.body.appendChild(aframe);
+    };
+
+    loadScripts();
+
+    // Cleanup kamera saat keluar
+    return () => {
+      const video = document.querySelector("video");
+      const stream = (video?.srcObject as MediaStream)?.getTracks();
+      stream?.forEach((track) => track.stop());
+    };
+  }, []);
 
   return (
-    <>
-      <h1 className="text-center text-xl font-bold my-4">Scan Marker AR</h1>
+    <div className="w-full h-screen bg-black text-white relative">
+      <h1 className="text-center text-xl font-bold my-4 z-10 relative">
+        Scan Marker AR
+      </h1>
 
-      {!active ? (
-        <button
-          onClick={handleStart}
-          className="bg-green-600 text-white px-4 py-2 rounded"
-        >
-          Aktifkan Kamera
-        </button>
-      ) : (
+      {loaded ? (
         <a-scene
           embedded
           arjs="sourceType: webcam;"
@@ -30,7 +52,9 @@ export default function ScanQR() {
           </a-marker>
           <a-entity camera></a-entity>
         </a-scene>
+      ) : (
+        <div className="text-center mt-10">Memuat AR Engine...</div>
       )}
-    </>
+    </div>
   );
 }

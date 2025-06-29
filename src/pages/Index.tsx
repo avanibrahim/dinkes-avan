@@ -1,12 +1,11 @@
-import Navbar from "@/components/Navbar";
 import { useLocation } from "react-router-dom";
+import Navbar from "@/components/Navbar";
 import Home from "./Home";
-import Diagnosis from "./Diagnosis";
-import Berita from "./ScanQR";
-import Monitoring from "./Monitoring";
 import Stunting from "./diagnosis/Stunting";
 import Dbd from "./diagnosis/Dbd";
 import Hiv from "./diagnosis/Hiv";
+import ScanQR from "./ScanQR";
+import "./index.css"; // Global styles (untuk kamera, scene, dll)
 
 const Index = () => {
   const location = useLocation();
@@ -16,30 +15,6 @@ const Index = () => {
       <>
         <Navbar />
         <Home />
-      </>
-    );
-
-  if (location.pathname === "/diagnosis")
-    return (
-      <>
-        <Navbar />
-        <Diagnosis />
-      </>
-    );
-
-  if (location.pathname === "/scanqr")
-    return (
-      <>
-        <Navbar />
-        <Berita />
-      </>
-    );
-
-  if (location.pathname === "/monitoring")
-    return (
-      <>
-        <Navbar />
-        <Monitoring />
       </>
     );
 
@@ -67,6 +42,15 @@ const Index = () => {
       </>
     );
 
+  if (location.pathname === "/scanqr")
+    return (
+      <>
+        <Navbar />
+        <ScanQR />
+      </>
+    );
+
+  // fallback jika path tidak dikenal
   return (
     <>
       <Navbar />
