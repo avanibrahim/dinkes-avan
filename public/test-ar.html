@@ -2,9 +2,24 @@
     <a-assets>
       <a-asset-item id="model" src="models/stunting.glb"></a-asset-item>
     </a-assets>
+
+    <a-marker preset="/marker/pattern-processed_marker.patt">
+      <a-entity
+        gltf-model="#model"
+        scale="0.5 0.5 0.5"
+        position="0 0 0"
+        animation-mixer
+      ></a-entity>
+
+    <a-marker preset="/marker/pattern-react.patt">
+      <a-entity
+        gltf-model="#model"
+        scale="0.5 0.5 0.5"
+        position="0 0 0"
+        animation-mixer
+      ></a-entity>
   
     <a-marker type="pattern" url="/marker/custom_marker.patt">
-
       <a-entity
         gltf-model="#model"
         scale="0.5 0.5 0.5"
