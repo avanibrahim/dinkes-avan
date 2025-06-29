@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
+
 // Lazy load halaman utama
 const Index = lazy(() => import("./pages/Index"));
 const Tentang = lazy(() => import("./pages/Diagnosis"));
