@@ -1,24 +1,20 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import path from "path";
-import { componentTagger } from "lovable-tagger";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-// ✅ gunakan return jika pakai kurung kurawal
-export default defineConfig(({ mode }) => {
-  return {
-    server: {
-      https: false, // ❌ false saat deploy (Vercel sudah pakai HTTPS)
-      host: "0.0.0.0",
-      port: 8080,
-    },    
-    plugins: [
-      react(),
-      mode === "development" && componentTagger(),
-    ].filter(Boolean),    
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "./src"),
-      },
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+export default defineConfig({
+  server: {
+    https: false, // ✅ INI BENAR kalau ADA DI DALAM `server`
+    port: 5173,
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "src"),
     },
-  };
+  },
+  plugins: [react()],
 });
