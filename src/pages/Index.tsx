@@ -7,7 +7,6 @@ import Monitoring from "./Monitoring";
 import Stunting from "./diagnosis/Stunting";
 import Dbd from "./diagnosis/Dbd";
 import Hiv from "./diagnosis/Hiv";
-import "./index.css"; // Import global styles
 
 const Index = () => {
   const location = useLocation();
