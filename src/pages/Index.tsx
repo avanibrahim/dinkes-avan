@@ -7,7 +7,8 @@ import Monitoring from "./Monitoring";
 import Stunting from "./diagnosis/Stunting";
 import Dbd from "./diagnosis/Dbd";
 import Hiv from "./diagnosis/Hiv";
-import "../index.css"; // ✅ jika file di src/
+import "../index.css";
+
 
 
 const Index = () => {
