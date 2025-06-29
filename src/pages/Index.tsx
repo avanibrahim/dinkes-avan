@@ -5,7 +5,7 @@ import Stunting from "./diagnosis/Stunting";
 import Dbd from "./diagnosis/Dbd";
 import Hiv from "./diagnosis/Hiv";
 import ScanQR from "./ScanQR";
-import "./index.css"; // Global styles (untuk kamera, scene, dll)
+import "@/index.css"; // Global styles (untuk kamera, scene, dll)
 
 const Index = () => {
   const location = useLocation();
