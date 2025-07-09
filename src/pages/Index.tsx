@@ -4,7 +4,7 @@ import Home from "./Home";
 import Diagnosis from "./Diagnosis";
 import Berita from "./ScanQR";
 import Monitoring from "./Monitoring";
-import Stunting from "./diagnosis/Stunting";
+import Stunting from "./diagnosis/Tbc";
 import Dbd from "./diagnosis/Dbd";
 import Hiv from "./diagnosis/Hiv";
 import "../index.css";

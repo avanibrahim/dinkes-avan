@@ -1,197 +1,156 @@
-import React, { useState } from "react";
-import { CheckCircle, XCircle, Bot } from "lucide-react";
-import { cn } from "@/lib/utils";
-import ResultCard from "@/components/diagnosis/ResultCard";
-import ChartResult from "@/components/diagnosis/ChartResult";
-import { exportDiagnosisToPDF } from "@/lib/pdf";
+import { useState } from "react";
+import axios from "@/api/axiosConfig";
 
-const questions = [
-  { id: "q1", text: "Apakah Anda mengalami demam tinggi mendadak (di atas 38°C)?" },
-  { id: "q2", text: "Apakah terdapat bintik merah pada kulit atau pendarahan ringan (gusi, mimisan)?" },
-  { id: "q3", text: "Apakah Anda mengalami nyeri otot dan sendi yang parah?" },
-  { id: "q4", text: "Apakah Anda merasa lelah atau lemas berlebihan tanpa sebab jelas?" },
-  { id: "q5", text: "Apakah Anda tinggal di daerah yang banyak kasus DBD?" },
-  { id: "q6", text: "Apakah Anda mengalami mual, muntah, atau sakit perut?" },
-];
+interface HasilDiagnosis {
+  cf: number;
+  status: string;
+  judul_catatan: string;
+  catatan: string[];
+  detail?: {
+    gejala: string;
+    cf_user: number;
+    cf_pakar: number;
+    cf_hasil: number;
+  }[];
+}
 
 export default function DbdDiagnosis() {
-  const [answers, setAnswers] = useState<{ [key: string]: boolean }>({});
-  const [result, setResult] = useState<string | null>(null);
-  const [mlResult, setMlResult] = useState<{
-    prediction: string;
-    penjelasan: string;
-    saran: string;
-    chart_data: { positif: number; negatif: number };
-  } | null>(null);
+  const [answers, setAnswers] = useState<{ [key: string]: number }>({});
+  const [result, setResult] = useState<HasilDiagnosis | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const allAnswered = questions.every((q) => answers.hasOwnProperty(q.id));
+  const gejala = [
+    { id: "panas_tinggi_lesu", pertanyaan: "Mendadak panas tinggi, tampak lemah dan lesu" },
+    { id: "nyeri_ulu_hati", pertanyaan: "Seringkali ulu hati terasa nyeri" },
+    { id: "bintik_merah_petekie", pertanyaan: "Tampak bintik merah seperti petekie" },
+    { id: "mimisan", pertanyaan: "Kadang-kadang terjadi mimisan" },
+    { id: "muntah_berdarah", pertanyaan: "Muntah atau buang air besar bercampur darah" },
+    { id: "gelisah_kaki_dingin", pertanyaan: "Gelisah, ujung tangan dan kaki dingin" }
+  ];
 
-  const handleAnswerChange = (id: string, value: boolean) => {
+  const handleChange = (id: string, value: number) => {
     setAnswers((prev) => ({ ...prev, [id]: value }));
   };
 
-  const diagnose = async () => {
+  const submitDiagnosis = async () => {
     setLoading(true);
     setResult(null);
-    setMlResult(null);
-
-    const score = Object.values(answers).filter(Boolean).length;
-    if (score >= 3) {
-      setResult("Hasil manual menunjukkan indikasi kemungkinan DBD.");
-    } else {
-      setResult("Tidak ditemukan indikasi kuat DBD berdasarkan jawaban Anda.");
-    }
-
     try {
-      const res = await fetch("http://localhost:8000/predict/dbd", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(
-          questions.reduce((acc, q) => {
-            acc[q.id] = answers[q.id] ? 1 : 0;
-            return acc;
-          }, {} as { [key: string]: number })
-        ),
+      await new Promise((resolve) => setTimeout(resolve, 5000)); // Simulasi 5 detik
+      const res = await axios.post("/api/diagnosa", {
+        penyakit: "DBD",
+        gejala: answers
       });
-      const data = await res.json();
-      setMlResult(data);
-    } catch (err) {
-      console.error("❌ Gagal prediksi:", err);
-      setMlResult({
-        prediction: "Gagal memuat hasil dari model.",
-        penjelasan: "",
-        saran: "",
-        chart_data: { positif: 0, negatif: 0 },
-      });
+      setResult(res.data);
+    } catch (error) {
+      alert("Gagal mengirim data ke server.");
     }
-
     setLoading(false);
   };
 
   return (
-    <div className="w-full min-h-screen bg-gradient-to-b from-[#e6f7f9] to-white py-36 px-4">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[80vh]">
-        {/* KIRI: Gambar + Edukasi */}
-        <div className="flex flex-col justify-center items-start space-y-6 px-4">
-          <img
-            src="/img/dbd.png" // Ganti dengan path gambar kamu
-            alt="Ilustrasi DBD"
-            className="w-full max-w-sm mx-auto"
-
-          />
-          <div>
-            <h2 className="text-2xl font-bold text-teal-700 mb-2">Apa Itu DBD?</h2>
-            <p className="text-gray-700 text-sm leading-relaxed">
-              Demam Berdarah Dengue (DBD) adalah penyakit akibat virus dengue yang ditularkan
-              oleh nyamuk Aedes aegypti. Gejala umum meliputi demam tinggi mendadak, nyeri
-              otot, bintik merah, dan bisa berakibat fatal jika tidak ditangani dengan cepat.
-            </p>
+    <div className="relative max-w-2xl mx-auto p-6 bg-white rounded shadow">
+      {loading && (
+        <div className="absolute inset-0 bg-white bg-opacity-80 flex items-center justify-center z-50">
+          <div className="flex flex-col items-center">
+            <svg className="animate-spin h-10 w-10 text-blue-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+            </svg>
+            <p className="text-blue-700 font-medium text-sm">Mohon tunggu, sistem sedang menganalisis gejala...</p>
           </div>
         </div>
+      )}
 
-        {/* KANAN: Form */}
-        <section className="h-[80vh] bg-white/70 rounded-xl shadow px-6 py-6 backdrop-blur-sm flex flex-col">
-          <div>
-            <h1 className="text-3xl font-bold text-teal-700 mb-2">Form Diagnosis DBD</h1>
-            <p className="text-gray-600 mb-4">Jawab pertanyaan berikut dengan jujur.</p>
-          </div>
+      <h1 className="text-2xl font-bold mb-4">Form Diagnosis Penyakit DBD</h1>
 
-          <div className="flex-1 overflow-y-auto pr-2 space-y-5">
-            {questions.map((q, i) => (
-              <div key={q.id} className="bg-white p-4 rounded-xl shadow">
-                <p className="mb-2 font-medium text-gray-800">
-                  {i + 1}. {q.text}
-                </p>
-                <div className="flex gap-3">
-                  <button
-                    onClick={() => handleAnswerChange(q.id, true)}
-                    className={cn(
-                      "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition",
-                      answers[q.id] === true
-                        ? "bg-green-500 text-white"
-                        : "bg-gray-100 text-gray-700 hover:bg-green-100"
-                    )}
-                  >
-                    <CheckCircle size={18} /> Ya
-                  </button>
-                  <button
-                    onClick={() => handleAnswerChange(q.id, false)}
-                    className={cn(
-                      "flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition",
-                      answers[q.id] === false
-                        ? "bg-red-500 text-white"
-                        : "bg-gray-100 text-gray-700 hover:bg-red-200"
-                    )}
-                  >
-                    <XCircle size={18} /> Tidak
-                  </button>
-                </div>
-              </div>
+      {gejala.map((item) => (
+        <div key={item.id} className="mb-6">
+          <label className="block font-medium mb-2">{item.pertanyaan}</label>
+          <div className="flex gap-4">
+            {[{ label: "YA", value: 1.0 }, { label: "TIDAK", value: 0.0 }].map((opt) => (
+              <button
+                key={opt.label}
+                type="button"
+                className={`px-4 py-2 rounded border ${
+                  answers[item.id] === opt.value
+                    ? "bg-blue-600 text-white"
+                    : "bg-white text-gray-800 border-gray-300"
+                }`}
+                onClick={() => handleChange(item.id, opt.value)}
+              >
+                {opt.label}
+              </button>
             ))}
           </div>
+        </div>
+      ))}
 
-          <div className="mt-4 space-y-3">
-            <button
-              onClick={diagnose}
-              disabled={!allAnswered || loading}
-              className="w-full bg-teal-600 text-white px-6 py-3 rounded-xl font-semibold shadow hover:bg-teal-700 disabled:opacity-50"
-            >
-              {loading ? "Memproses..." : "Lihat Hasil Diagnosis"}
-            </button>
+      <button
+        onClick={submitDiagnosis}
+        disabled={loading}
+        className="mt-6 px-6 py-2 bg-blue-700 text-white font-semibold rounded hover:bg-blue-800"
+      >
+        Diagnosa Sekarang
+      </button>
 
-            {allAnswered && mlResult && (
-              <button
-                onClick={() =>
-                  exportDiagnosisToPDF({
-                    title: "Hasil Diagnosa DBD",
-                    answers,
-                    result: result || "",
-                    mlPrediction: mlResult.prediction,
-                  })
-                }
-                className="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
-              >
-                Download Hasil PDF
-              </button>
-            )}
-          </div>
-        </section>
-      </div>
+      {result && (
+        <div className="mt-6 p-4 border rounded bg-gray-50">
+          <h2 className="text-xl font-bold mb-2">Ringkasan Hasil</h2>
+          <p className="mb-2">
+            Berdasarkan gejala yang Anda pilih, terdapat indikasi <strong>{Math.round(result.cf * 100)}%</strong>
+            mengarah pada kemungkinan {" "}
+            <span className={
+              result.status === "Positif" ? "text-red-600 font-semibold" :
+              result.status === "Netral" ? "text-yellow-600 font-semibold" :
+              "text-green-600 font-semibold"
+            }>
+              {result.status === "Positif"
+                ? "POSITIF"
+                : result.status === "Netral"
+                ? "belum pasti (NETRAL)"
+                : "TIDAK TERINDIKASI"}
+            </span>{" "}
+            terhadap penyakit <strong>DBD</strong>.
+          </p>
 
-      {/* HASIL DIAGNOSIS */}
-      {(result || mlResult) && (
-        <div className="max-w-7xl mx-auto mt-12 animate-fade-in bg-white rounded-xl shadow px-6 py-6">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Hasil Diagnosis</h2>
+          <p className="mb-4 text-sm text-gray-600">
+            * Perhitungan ini berdasarkan metode <strong>Certainty Factor</strong> dengan bobot keyakinan dari pakar.
+            Hasil ini bukan diagnosis medis final.
+          </p>
 
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="flex-1 space-y-4 animate-slide-in-left">
-              {result && (
-                <p className="text-gray-700 text-sm md:text-base">
-                  <span className="font-semibold">Analisis Manual:</span> {result}
-                </p>
-              )}
+          <h3 className="font-semibold">{result.judul_catatan}</h3>
+          <ul className="list-disc ml-6 mt-2 text-sm">
+            {result.catatan.map((item, idx) => (
+              <li key={idx}>{item}</li>
+            ))}
+          </ul>
 
-              {mlResult && (
-                <ResultCard
-                  result={mlResult.prediction}
-                  penjelasan={mlResult.penjelasan}
-                  saran={mlResult.saran}
-                  chartData={mlResult.chart_data}
-                />
-              )}
+          {result.detail && (
+            <div className="mt-4">
+              <h4 className="font-semibold mb-1">Detail Perhitungan:</h4>
+              <table className="text-sm w-full border">
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="p-2 border">Gejala</th>
+                    <th className="p-2 border">CF User</th>
+                    <th className="p-2 border">CF Pakar</th>
+                    <th className="p-2 border">Hasil</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {result.detail.map((d, idx) => (
+                    <tr key={idx}>
+                      <td className="p-2 border">{d.gejala}</td>
+                      <td className="p-2 border text-center">{d.cf_user}</td>
+                      <td className="p-2 border text-center">{d.cf_pakar}</td>
+                      <td className="p-2 border text-center">{d.cf_hasil.toFixed(2)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-
-            <div className="w-full md:w-[300px] lg:w-[400px] animate-slide-in-right">
-              <ChartResult
-                data={[
-                  { name: "Gejala Terpenuhi", value: Object.values(answers).filter(Boolean).length },
-                  { name: "Tidak Terpenuhi", value: Object.values(answers).filter((v) => !v).length },
-                  { name: "Prediksi ML", value: mlResult?.prediction === "Positif" ? 1 : 0 },
-                ]}
-              />
-            </div>
-          </div>
+          )}
         </div>
       )}
     </div>

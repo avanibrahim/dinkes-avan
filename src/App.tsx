@@ -15,7 +15,7 @@ const Monitoring = lazy(() => import("./pages/Monitoring"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // ✅ Tambahkan lazy load halaman diagnosis per penyakit
-const DiagnosisStunting = lazy(() => import("./pages/diagnosis/Stunting"));
+const DiagnosisStunting = lazy(() => import("./pages/diagnosis/Tbc"));
 const DiagnosisDBD = lazy(() => import("./pages/diagnosis/Dbd"));
 const DiagnosisHIV = lazy(() => import("./pages/diagnosis/Hiv"));
 
