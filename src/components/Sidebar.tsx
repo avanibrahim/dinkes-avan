@@ -51,16 +51,20 @@ export default function Sidebar({
       )}
     >
       {/* Header: show only mobile toggle, static on desktop */}
-      <div className="flex items-center justify-between px-4 py-4 border-b bg-white z-20 sticky top-0 md:static">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/d/de/Logo_of_the_Ministry_of_Health_of_the_Republic_of_Indonesia.png"
-          alt="Logo"
-          className="w-32"
-        />
-        <button onClick={() => setMobileOpen(!mobileOpen)} className="p-2 md:hidden">
-          <Menu className="w-6 h-6 text-gray-600" />
-        </button>
-      </div>
+      <div className="flex items-center justify-center px-4 py-4 border-b border-gray-200 bg-white z-20 sticky top-0 md:static">
+      {/* Teks hanya tampil di mobile */}
+      <h1 className="block sm:hidden text-lg font-semibold text-gray-800">
+        Pilih Menu
+      </h1>
+
+      {/* Logo hanya tampil di ≥sm */}
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/d/de/Logo_of_the_Ministry_of_Health_of_the_Republic_of_Indonesia.png"
+        alt="Logo"
+        className="hidden sm:block w-40 md:w-48"
+      />
+    </div>
+
 
       {/* Navigation */}
       <nav className="flex-1 px-2 py-4 space-y-1">

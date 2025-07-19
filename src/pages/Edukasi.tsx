@@ -31,15 +31,15 @@ export default function Edukasi() {
   
       {/* Banner */}
       <motion.section
-        className="mt-6 p-[2.5rem] rounded-[0.5rem] bg-gradient-to-br from-teal-500 to-cyan-600 text-white"
+        className="mt-6 p-4 sm:p-6 rounded-lg bg-gradient-to-br from-teal-500 to-cyan-600 text-white w-full max-w-md mx-auto md:max-w-2xl lg:max-w-4xl"
         variants={fadeUp}
       >
-        <h1 className="text-4xl font-bold mb-2">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold mb-4 leading-tight">
           Edukasi dan <br />
           Deteksi Penyakit Menular
         </h1>
         <p className="inline-block bg-white text-teal-700 px-4 py-2 rounded-[1rem] font-medium">
-          Pelajari Lebih Lanjut Tentang Website
+          Pelajari Lebih Lanjut Edukasi Penyakit Menular
         </p>
       </motion.section>
   
@@ -160,11 +160,7 @@ export default function Edukasi() {
     </div>
   </div>
 </motion.section>
-
     </motion.main>
-  
-    {/* Right Panel */}
-   
   </div>  
   );
 }

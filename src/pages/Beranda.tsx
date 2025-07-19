@@ -55,77 +55,84 @@ export default function Beranda() {
 
       {/* Banner */}
       <motion.section
-              className="mt-6 p-[2.5rem] rounded-[0.5rem] bg-gradient-to-br from-teal-500 to-cyan-600 text-white"
-              variants={fadeUp}
-            >
-              <h1 className="text-4xl font-bold mb-2">
-                Edukasi Deteksi <br />Penyakit Menular
-              </h1>
-                  <p className="inline-block bg-white text-teal-700 px-4 py-2 rounded-[1rem] font-medium">
+                className="mt-6 p-4 sm:p-6 rounded-lg bg-gradient-to-br from-teal-500 to-cyan-600 text-white w-full max-w-md mx-auto md:max-w-2xl lg:max-w-4xl"
+                variants={fadeUp}
+              >
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold mb-4 leading-tight">
+                  Edukasi dan <br />
+                  Deteksi Penyakit Menular
+                </h1>
+                <p className="inline-block bg-white text-teal-700 px-4 py-2 rounded-[1rem] font-medium">
                     Pelajari Edukasi Penyakit Menular Lebih Lanjut
                   </p>
-            </motion.section>
+              </motion.section>
+
 
       {/* Edukasi Section */}
       <motion.section className="mt-[1.5rem]" variants={fadeUp}>
         <h2 className="text-xl font-semibold mb-4">
-            Edukasi Penyakit Menular
+          Edukasi Penyakit Menular
         </h2>
-        <div className="grid grid-cols-3 gap-6">
-            {["DBD", "HIV/AIDS", "TBC"].map((title) => (
+        <div className="grid grid-cols-3 gap-6 sm:grid-cols-3">
+          {[
+            "DBD",
+            "HIV/AIDS",
+            "TBC",
+          ].map((title) => (
             <motion.div
-                key={title}
-                className="bg-white p-4 rounded-2xl shadow text-center"
-                variants={fadeUp}
-            >
-                <div className="w-16 h-16 mx-auto mb-2">
-                <img
-                    src={
-                    title === "DBD"
-                        ? "/img/icons/dbdl.png"
-                        : title === "HIV/AIDS"
-                        ? "/img/icons/aidsl.png"
-                        : "/img/icons/tbcl.png"
-                    }
-                    alt={title}
-                    className="w-full h-full object-contain"
-                />
-                </div>
-                <p className="font-medium mb-2">{title}</p>
-                <button className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
-                Pelajari Selengkapnya
-                </button>
-            </motion.div>
-            ))}
-        </div>
-        </motion.section>
-
-
-      {/* Scan QR Section */}
-      <motion.section className="mt-[1.5rem] mb-20" variants={fadeUp}>
-        <h2 className="text-xl font-semibold mb-4 text-gray-800">
-          SCAN ME
-        </h2>
-        <div className="grid grid-cols-3 gap-6">
-          {["qr1.png", "qr2.png", "qr3.png"].map((src, idx) => (
-            <motion.div
-              key={idx}
-              className="bg-white p-4 rounded-2xl shadow flex items-center justify-center"
+              key={title}
+              className="bg-white p-4 rounded-2xl shadow text-center"
               variants={fadeUp}
             >
-              <img
-                src={`/img/qr/${src}`}
-                alt={`QR Code ${idx + 1}`}
-                className="w-40 h-40 object-contain"
-              />
+              <div className="w-12 h-12 mx-auto mb-2 sm:w-16 sm:h-16">
+                <img
+                  src={
+                    title === "DBD"
+                      ? "/img/icons/dbdl.png"
+                      : title === "HIV/AIDS"
+                      ? "/img/icons/aidsl.png"
+                      : "/img/icons/tbcl.png"
+                  }
+                  alt={title}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <p className="font-medium mb-2">{title}</p>
+              <button className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
+                Pelajari Selengkapnya
+              </button>
             </motion.div>
           ))}
         </div>
       </motion.section>
-    </motion.main>
 
-      {/* Right Panel */}
-   
+
+      {/* Scan QR Section */}
+      <motion.section className="mt-[1.5rem] mb-20" variants={fadeUp}>
+    <h2 className="text-xl font-semibold mb-4 text-gray-800">
+      SCAN ME
+    </h2>
+    <div className="grid grid-cols-3 gap-6">
+      {[
+        "qr1.png",
+        "qr2.png",
+        "qr3.png",
+      ].map((src, idx) => (
+        <motion.div
+          key={idx}
+          className="bg-white p-4 rounded-2xl shadow flex items-center justify-center"
+          variants={fadeUp}
+        >
+          <img
+            src={`/img/qr/${src}`}
+            alt={`QR Code ${idx + 1}`}
+            className="w-24 h-24 sm:w-40 sm:h-40 object-contain"
+          />
+        </motion.div>
+      ))}
+    </div>
+  </motion.section>
+    </motion.main> 
     </div>
   );
 }
