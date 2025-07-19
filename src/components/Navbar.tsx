@@ -13,9 +13,9 @@ import { Link, useLocation } from "react-router-dom";
 const menu = [
   { label: "Beranda", href: "/" },
 //  { label: "Diagnosis", href: "/diagnosis" },
-{ label: "Stunting", href: "/diagnosis-stunting" },
+{ label: "TBC", href: "/diagnosis-stunting" },
 { label: "DBD", href: "/diagnosis-dbd" },
-{ label: "HIV", href: "/diagnosis-hiv" },
+{ label: "HIV/AIDS", href: "/diagnosis-hiv" },
 { label: "Scan QR", href: "/scanqr" },
 ];
 

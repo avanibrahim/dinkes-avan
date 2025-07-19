@@ -99,6 +99,10 @@ export default {
           "0%": { opacity: "0", transform: "translateX(50px)" },
           "100%": { opacity: "1", transform: "translateX(0)" },
         },
+        scroll: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
       },
 
       animation: {
@@ -109,6 +113,7 @@ export default {
         "fade-in": "fadeIn 0.6s ease-out forwards",
         "slide-in-left": "slideInLeft 0.6s ease-out forwards",
         "slide-in-right": "slideInRight 0.6s ease-out forwards",
+        "scroll": "scroll 20s linear infinite",
       },
     },
   },

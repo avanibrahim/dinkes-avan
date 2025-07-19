@@ -1,27 +1,32 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import React from "react";
+import { Construction } from "lucide-react";
 
-const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error(
-      "404 Error: User attempted to access non-existent route:",
-      location.pathname
-    );
-  }, [location.pathname]);
-
+const UnderMaintenancePage = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
-          Return to Home
+    <section className="min-h-screen flex items-center justify-center px-6 py-16 bg-gradient-to-b from-[#e6f7f9] to-white text-center">
+      <div className="max-w-lg w-full space-y-8">
+        {/* Judul */}
+        <h1 className="text-3xl md:text-4xl font-bold text-[#229b94] flex flex-col justify-center items-center gap-4">
+          <Construction className="w-12 h-12 text-black" />
+          Pages Maintenance
+        </h1>
+
+
+        {/* Deskripsi */}
+        <p className="text-gray-700 text-sm md:text-base">
+          Mohon maaf atas ketidaknyamanannya. Kami sedang melakukan pemeliharaan sistem untuk meningkatkan layanan. Silakan kembali lagi nanti.
+        </p>
+
+        {/* Tombol kembali */}
+        <a
+          href="/"
+          className="inline-block mt-4 px-6 py-3 bg-[#229b94] hover:bg-[#229b94] text-white font-semibold rounded-lg transition"
+        >
+          Kembali ke Beranda
         </a>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default NotFound;
+export default UnderMaintenancePage;

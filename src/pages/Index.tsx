@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Home from "./Home";
 import Diagnosis from "./Diagnosis";
 import Berita from "./ScanQR";
-import Monitoring from "./Monitoring";
+import Monitoring from "./Contact";
 import Stunting from "./diagnosis/Tbc";
 import Dbd from "./diagnosis/Dbd";
 import Hiv from "./diagnosis/Hiv";
@@ -17,7 +17,6 @@ const Index = () => {
   if (location.pathname === "/")
     return (
       <>
-        <Navbar />
         <Home />
       </>
     );
@@ -25,7 +24,6 @@ const Index = () => {
   if (location.pathname === "/diagnosis")
     return (
       <>
-        <Navbar />
         <Diagnosis />
       </>
     );
@@ -33,7 +31,6 @@ const Index = () => {
   if (location.pathname === "/scanqr")
     return (
       <>
-        <Navbar />
         <Berita />
       </>
     );
@@ -41,7 +38,6 @@ const Index = () => {
   if (location.pathname === "/monitoring")
     return (
       <>
-        <Navbar />
         <Monitoring />
       </>
     );
