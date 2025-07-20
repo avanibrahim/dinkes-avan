@@ -171,42 +171,52 @@ export default function Home() {
 
 
         {/* Edukasi Section */}
-       <motion.section className="mt-[1.5rem]" variants={fadeUp}>
-               <h2 className="text-xl font-semibold mb-4">
-                 Edukasi Penyakit Menular
-               </h2>
-               <div className="grid grid-cols-3 gap-6 sm:grid-cols-3">
-                 {[
-                   "DBD",
-                   "HIV/AIDS",
-                   "TBC",
-                 ].map((title) => (
-                   <motion.div
-                     key={title}
-                     className="bg-white p-4 rounded-2xl shadow text-center"
-                     variants={fadeUp}
-                   >
-                     <div className="w-12 h-12 mx-auto mb-2 sm:w-16 sm:h-16">
-                       <img
-                         src={
-                           title === "DBD"
-                             ? "/img/icons/dbdl.png"
-                             : title === "HIV/AIDS"
-                             ? "/img/icons/aidsl.png"
-                             : "/img/icons/tbcl.png"
-                         }
-                         alt={title}
-                         className="w-full h-full object-contain"
-                       />
-                     </div>
-                     <p className="font-medium mb-2">{title}</p>
-                     <button className="text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded-full">
-                       Pelajari Selengkapnya
-                     </button>
-                   </motion.div>
-                 ))}
-               </div>
-             </motion.section>
+            <motion.section className="mt-[1.5rem]" variants={fadeUp}>
+                <h2 className="text-xl font-semibold mb-4">
+                  Edukasi Penyakit Menular
+                </h2>
+                <div className="grid grid-cols-3 gap-4">
+                  {["DBD", "HIV/AIDS", "TBC"].map((title) => (
+                    <motion.div
+                      key={title}
+                      className="bg-white p-3 sm:p-4 rounded-2xl shadow text-center"
+                      variants={fadeUp}
+                    >
+                      <div className="w-12 h-12 mx-auto mb-2 sm:w-16 sm:h-16">
+                        <img
+                          src={
+                            title === "DBD"
+                              ? "/img/icons/dbdl.png"
+                              : title === "HIV/AIDS"
+                              ? "/img/icons/aidsl.png"
+                              : "/img/icons/tbcl.png"
+                          }
+                          alt={title}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                      <p className="text-sm sm:text-base font-medium mb-2 sm:mb-4">
+                        {title}
+                      </p>
+                      <button
+                        className="
+                          w-full sm:w-auto
+                          text-[0.65rem] sm:text-sm
+                          bg-gray-100 text-gray-700
+                          px-2 sm:px-4
+                          py-1 sm:py-2
+                          rounded-full
+                          mx-auto
+                          transition hover:bg-gray-200
+                          whitespace-normal break-words
+                        "
+                      >
+                        Pelajari Selengkapnya
+                      </button>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.section>
 
 
         {/* Hospital Map */}
