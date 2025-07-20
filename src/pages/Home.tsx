@@ -210,6 +210,7 @@ export default function Home() {
                           transition hover:bg-gray-200
                           whitespace-normal break-words
                         "
+                        onClick={() => window.location.href = '/edukasi'}
                       >
                         Pelajari Selengkapnya
                       </button>

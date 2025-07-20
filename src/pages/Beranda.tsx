@@ -108,6 +108,7 @@ export default function Beranda() {
               transition hover:bg-gray-200
               whitespace-normal break-words
             "
+            onClick={() => window.location.href = '/edukasi'}
           >
             Pelajari Selengkapnya
           </button>
@@ -122,7 +123,7 @@ export default function Beranda() {
     <h2 className="text-xl font-semibold mb-4 text-gray-800">
       SCAN ME
     </h2>
-    <div className="grid grid-cols-3 gap-6">
+    <div className="grid grid-cols-3 gap-3">
       {[
         "qr1.png",
         "qr2.png",

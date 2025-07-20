@@ -31,18 +31,16 @@ export default function Tentang() {
       <Header />
 
       {/* Banner */}
-            <motion.section
-              className="mt-6 p-4 sm:p-6 rounded-lg bg-gradient-to-br from-teal-500 to-cyan-600 text-white w-full max-w-md mx-auto md:max-w-2xl lg:max-w-4xl"
-              variants={fadeUp}
-            >
+      <motion.section className="mt-6 p-4 sm:p-6 rounded-lg bg-gradient-to-br from-teal-500 to-cyan-600 text-white w-full max-w-md mx-auto md:max-w-2xl lg:max-w-4xl" variants={fadeUp}>
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold mb-4 leading-tight">
                 Edukasi dan <br />
                 Deteksi Penyakit Menular
               </h1>
-              <p className="inline-block bg-white text-teal-700 px-4 py-2 rounded-[1rem] font-medium">
+              <p className="inline-block bg-white text-teal-700 px-4 py-2 rounded-[1rem] font-medium text-[0.75rem] sm:text-base">
               Pelajari Lebih Lanjut Tentang Website
               </p>
             </motion.section>
+        
 
       {/* Edukasi Section */}
         <motion.section

@@ -8,13 +8,13 @@ const UnderMaintenancePage = () => {
         {/* Judul */}
         <h1 className="text-3xl md:text-4xl font-bold text-[#229b94] flex flex-col justify-center items-center gap-4">
           <Construction className="w-12 h-12 text-black" />
-          Pages Maintenance
+          404 Not-Found
         </h1>
 
 
         {/* Deskripsi */}
         <p className="text-gray-700 text-sm md:text-base">
-          Mohon maaf atas ketidaknyamanannya. Kami sedang melakukan pemeliharaan sistem untuk meningkatkan layanan. Silakan kembali lagi nanti.
+          Anda Telah melewati batas dari website ini. Halaman yang Anda cari tidak ditemukan, Mohon maaf atas ketidaknyamanan ini.
         </p>
 
         {/* Tombol kembali */}

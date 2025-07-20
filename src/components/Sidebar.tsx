@@ -12,6 +12,7 @@ import {
   Settings,
   HelpCircle,
   Menu,
+  User,
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
@@ -21,7 +22,7 @@ const mainSidebarMenu = [
   { label: "Beranda", icon: FileText, href: "/beranda" },
   { label: "Edukasi", icon: MessageSquareText, href: "/edukasi" },
   { label: "Tentang", icon: Info, href: "/tentang" },
-  { label: "Contact", icon: Settings, href: "/contact" },
+  { label: "Contact", icon: User, href: "/contact" },
 ];
 
 export default function Sidebar({
@@ -61,7 +62,7 @@ export default function Sidebar({
     >
       {/* Header: mobile text or logo */}
       <div className="flex items-center justify-start sm:justify-center px-4 py-4 border-b sm:border-b border-gray-400 bg-gray-50 z-20 sticky top-0 md:static">
-          <h1 className="flex items-center sm:hidden text-[1.2rem] font-bold text-gray-800">
+          <h1 className="flex items-center sm:hidden text-[1.2rem] font-bold text-teal-600">
             <Menu className="w-5 h-5 mr-2 text-gray-800" />
             Pilih Menu
           </h1>

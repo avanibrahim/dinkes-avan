@@ -1,6 +1,9 @@
-import { Bell, Settings, Search } from "lucide-react";
+import { Bell, Settings, Search, User, Info } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <header className="sticky top-0 mb-6 z-10 mt-4 sm:mt-0 pt-0">
   <div className="max-w-3xl mx-auto flex justify-between items-center bg-white rounded-2xl border shadow px-6 py-3">
@@ -16,12 +19,18 @@ const Header = () => {
 
     {/* Buttons */}
     <div className="flex items-center gap-4 ml-6">
-      <button className="bg-teal-100 p-2 rounded-full">
-        <Settings className="w-5 h-5 text-teal-600" />
-      </button>
-      <button className="bg-teal-100 p-2 rounded-full">
-        <Bell className="w-5 h-5 text-teal-600" />
-      </button>
+    <button
+      className="bg-teal-100 p-2 rounded-full"
+      onClick={() => navigate("/tentang")}
+    >
+      <Info className="w-5 h-5 text-teal-600" />
+    </button>
+    <button
+      className="bg-teal-100 p-2 rounded-full"
+      onClick={() => navigate("/contact")}
+    >
+      <User className="w-5 h-5 text-teal-600" />
+    </button>
     </div>
   </div>
 </header>
