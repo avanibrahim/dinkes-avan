@@ -2,7 +2,7 @@ import { Bell, Settings, Search } from "lucide-react";
 
 const Header = () => {
   return (
-    <header className="sticky mb-6 z-10 pt-2">
+    <header className="sticky top-0 mb-6 z-10 mt-4 sm:mt-0 pt-0">
   <div className="max-w-3xl mx-auto flex justify-between items-center bg-white rounded-2xl border shadow px-6 py-3">
     {/* Search Box with Icon */}
     <div className="relative flex-1 max-w-md">
@@ -25,6 +25,7 @@ const Header = () => {
     </div>
   </div>
 </header>
+
   );
 };
 

@@ -132,35 +132,25 @@ export default function DbdDiagnosis() {
 
         {/* Diagnosis Flow */}
          <motion.section className="mt-[1.5rem]" variants={fadeUp}>
-         <div className="flex flex-col sm:flex-row items-center justify-between w-full mb-4 space-y-2 sm:space-y-0">
-  <h2 className="text-xl font-semibold mb-0">
-    Diagnosa Penyakit DBD
-  </h2>
-  <motion.button
-    onClick={() => window.location.reload()}
-    whileTap={{ scale: 0.95 }}
-    className="
-      flex items-center justify-center gap-2
-      w-full sm:w-auto
-      bg-gradient-to-br from-teal-500 to-cyan-600 text-white
-      px-3 sm:px-4
-      py-2
-      rounded-lg
-      transition
-    "
-  >
-    <motion.div
-      whileHover={{ rotate: 90 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-      className="flex items-center"
-    >
-      <RefreshCw className="w-4 h-4 sm:w-5 sm:h-5" />
-    </motion.div>
-    <span className="text-xs sm:text-sm">
-      Refresh Halaman
-    </span>
-  </motion.button>
-</div>
+         <div className="flex items-center justify-between w-full mb-4">
+                         <h2 className="text-xl font-semibold mb-0">
+                             Diagnosa Penyakit DBD
+                         </h2>
+                         <motion.button
+                   onClick={() => window.location.reload()}
+                   className="flex items-center gap-2  bg-gradient-to-br from-teal-500 to-cyan-600 text-white px-3 py-1 rounded"
+                   whileTap={{ scale: 0.95 }}
+                 >
+                   <motion.div
+                     whileHover={{ rotate: 90 }}
+                     transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                     className="flex items-center"
+                   >
+                     <RefreshCw className="w-5 h-5" />
+                   </motion.div>
+                   <span className="text-sm">Refresh Halaman</span>
+                 </motion.button>
+                 </div>
 
 
           <motion.div className="bg-white rounded-2xl shadow-lg p-8 relative" variants={fadeUp}>

@@ -2,6 +2,7 @@ import RightPanel from "@/components/RightPanel";
 import { Bell, Settings } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import Header from "@/components/Header";
+import Magnifier from "@/components/Magnifier";
 
 const container: Variants = {
   hidden: {},
@@ -45,40 +46,42 @@ export default function Tentang() {
 
       {/* Edukasi Section */}
         <motion.section
-        className="text-[2rem] font-semibold mt-4"
+        className="text-xl font-semibold mb-4 mt-4"
             variants={fadeUp}
             >
             Tentang Website
     
         </motion.section>
+
+       
       <motion.section
-  className="mt-4 bg-gray-100 border border-gray-300 p-6 rounded-2xl"
-  variants={fadeUp}
->
-  <p className="text-[1rem] leading-relaxed text-gray-700 mb-4 text-justify">
-    Website Edukasi dan Diagnosa Penyakit Menular adalah
-    platform digital berbasis web yang dirancang untuk
-    memberikan informasi edukatif dan layanan diagnosa dini
-    terkait tiga penyakit menular utama, yaitu HIV, TBC
-    (Tuberkulosis), dan DBD (Demam Berdarah Dengue).
-  </p>
-  <p className="text-[1rem] leading-relaxed text-gray-700 mb-4 text-justify">
-    Dengan antarmuka modern dan user-friendly, website ini
-    bertujuan meningkatkan kesadaran masyarakat mengenai
-    bahaya penyakit menular, cara pencegahan, gejala, serta
-    langkah-langkah pengobatan. Selain itu, pengguna dapat
-    melakukan diagnosa awal melalui form interaktif untuk
-    membantu mengenali risiko terhadap ketiga penyakit
-    tersebut.
-  </p>
-    <p className="text-[1rem] leading-relaxed text-gray-700 text-justify">
-    Platform ini juga menyediakan sumber daya visual profesional, seperti logo dan ikon 
-    untuk setiap penyakit, yang dapat digunakan untuk kegiatan edukasi, presentasi, maupun 
-    keperluan promosi kesehatan. Dengan adanya fitur-fitur komprehensif dan tampilan yang 
-    mudah digunakan, website ini diharapkan dapat menjadi rujukan utama bagi masyarakat dalam 
-    mendapatkan pengetahuan dan deteksi dini penyakit menular penting di Indonesia.
-    </p>
-</motion.section>
+        className="
+          mt-4 bg-gray-100 border border-gray-300 
+          px-4 py-6 sm:px-6 sm:py-8 
+          rounded-2xl 
+          max-w-4xl mx-auto
+        "
+        variants={fadeUp}
+      >
+        <p className="text-sm sm:text-base leading-relaxed text-gray-700 mb-4 text-justify">
+          Website Edukasi dan Diagnosa Penyakit Menular adalah platform digital berbasis web yang dirancang untuk
+          memberikan informasi edukatif dan layanan diagnosa dini terkait tiga penyakit menular utama, yaitu HIV,
+          TBC (Tuberkulosis), dan DBD (Demam Berdarah Dengue).
+        </p>
+        <p className="text-sm sm:text-base leading-relaxed text-gray-700 mb-4 text-justify">
+          Dengan antarmuka modern dan user-friendly, website ini bertujuan meningkatkan kesadaran masyarakat mengenai
+          bahaya penyakit menular, cara pencegahan, gejala, serta langkah-langkah pengobatan. Selain itu, pengguna dapat
+          melakukan diagnosa awal melalui form interaktif untuk membantu mengenali risiko terhadap ketiga penyakit
+          tersebut.
+        </p>
+        <p className="text-sm sm:text-base leading-relaxed text-gray-700 text-justify">
+          Platform ini juga menyediakan sumber daya visual profesional, seperti logo dan ikon untuk setiap penyakit,
+          yang dapat digunakan untuk kegiatan edukasi, presentasi, maupun keperluan promosi kesehatan. Dengan adanya
+          fitur-fitur komprehensif dan tampilan yang mudah digunakan, website ini diharapkan dapat menjadi rujukan
+          utama bagi masyarakat dalam mendapatkan pengetahuan dan deteksi dini penyakit menular penting di Indonesia.
+        </p>
+      </motion.section>
+
 
     </motion.main>
 

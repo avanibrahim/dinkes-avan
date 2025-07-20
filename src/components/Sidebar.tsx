@@ -41,30 +41,36 @@ export default function Sidebar({
   ];
 
   return (
+    <>
+    {/* Overlay for mobile: click outside to close */}
+    {mobileOpen && (
+      <div
+        className="fixed inset-0 bg-black bg-opacity-50 z-20"
+        onClick={() => setMobileOpen(false)}
+      />
+    )}
+
     <aside
       className={clsx(
         "fixed left-0 transform transition-transform duration-300 ease-in-out w-64",
-        "bg-white border-r shadow-lg z-30 flex flex-col",
+        "bg-white border-r shadow-lg flex flex-col z-30",
         "md:top-0 md:bottom-0 top-16 bottom-0",
         mobileOpen ? "translate-x-0" : "-translate-x-full",
         "md:translate-x-0 md:static md:h-auto"
       )}
     >
-      {/* Header: show only mobile toggle, static on desktop */}
-      <div className="flex items-center justify-center px-4 py-4 border-b border-gray-200 bg-white z-20 sticky top-0 md:static">
-      {/* Teks hanya tampil di mobile */}
-      <h1 className="block sm:hidden text-lg font-semibold text-gray-800">
-        Pilih Menu
-      </h1>
-
-      {/* Logo hanya tampil di ≥sm */}
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/d/de/Logo_of_the_Ministry_of_Health_of_the_Republic_of_Indonesia.png"
-        alt="Logo"
-        className="hidden sm:block w-40 md:w-48"
-      />
-    </div>
-
+      {/* Header: mobile text or logo */}
+      <div className="flex items-center justify-start sm:justify-center px-4 py-4 border-b sm:border-b border-gray-400 bg-gray-50 z-20 sticky top-0 md:static">
+          <h1 className="flex items-center sm:hidden text-[1.2rem] font-bold text-gray-800">
+            <Menu className="w-5 h-5 mr-2 text-gray-800" />
+            Pilih Menu
+          </h1>
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/d/de/Logo_of_the_Ministry_of_Health_of_the_Republic_of_Indonesia.png"
+          alt="Logo"
+          className="hidden sm:block w-40 md:w-48"
+        />
+      </div>
 
       {/* Navigation */}
       <nav className="flex-1 px-2 py-4 space-y-1">
@@ -133,5 +139,6 @@ export default function Sidebar({
         </button>
       </div>
     </aside>
+  </>
   );
 }

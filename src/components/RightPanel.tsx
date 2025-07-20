@@ -48,20 +48,29 @@ const RightPanel: React.FC<RightPanelProps> = ({ isOpen, setIsOpen }) => {
     .split(" ");
 
   return (
+    <>
+    {/* Overlay: click outside to close panel */}
+    {isOpen && (
+      <div
+        className="fixed inset-0 bg-black bg-opacity-50 z-30"
+        onClick={() => setIsOpen(false)}
+      />
+    )}
+
     <aside
       className={clsx(
-        // slide-in/out container
-        "fixed right-0 transform transition-transform duration-300 ease-in-out w-80 bg-white border-l px-6 py-8 overflow-y-auto z-40",
-        // positioning: on desktop from top to bottom; on mobile start below top bar (4rem)
-        "md:top-0 md:bottom-0 top-16 bottom-0",
+        'fixed right-0 transform transition-transform duration-300 ease-in-out w-80 bg-white border-l px-6 py-8 overflow-y-auto z-40',
+        'md:top-0 md:bottom-0 top-16 bottom-0',
         {
-          "translate-x-0": isOpen,
-          "translate-x-full": !isOpen,
-          "lg:translate-x-0": true,
+          'translate-x-0': isOpen,
+          'translate-x-full': !isOpen,
+          'lg:translate-x-0': true,
         }
       )}
+      // Prevent clicks inside panel from bubbling to overlay
+      onClick={e => e.stopPropagation()}
     >
-      {/* close button on mobile */}
+      {/* Close button on mobile */}
       {isOpen && (
         <button
           onClick={() => setIsOpen(false)}
@@ -75,26 +84,18 @@ const RightPanel: React.FC<RightPanelProps> = ({ isOpen, setIsOpen }) => {
       <div className="flex flex-col space-y-8">
         {/* Real Time */}
         <div>
-          <h3 className="text-base font-semibold text-gray-800 mb-3">
-            Real Time
-          </h3>
+          <h3 className="text-base font-semibold text-gray-800 mb-3">Real Time</h3>
           <div className="flex gap-4">
             <div className="flex flex-col items-center justify-center w-32 h-20 bg-gradient-to-br from-teal-500 to-cyan-500 text-white rounded-xl shadow">
               <CalendarDays className="w-5 h-5 mb-1" />
               <p className="text-xs font-medium">Tanggal</p>
-              <p className="text-lg font-mono font-bold leading-none text-center">
-                {dateStr}
-              </p>
+              <p className="text-lg font-mono font-bold leading-none text-center">{dateStr}</p>
             </div>
             <div className="flex flex-col items-center justify-center w-32 h-20 bg-gray-100 text-gray-800 rounded-xl shadow">
               <Clock className="w-5 h-5 mb-1 text-teal-500" />
               <p className="text-xs font-medium">Waktu</p>
-              <p className="text-lg font-mono font-bold leading-none">
-                {timeStr}
-              </p>
-              <p className="text-xs mt-1 text-teal-500 font-semibold">
-                {period}
-              </p>
+              <p className="text-lg font-mono font-bold leading-none">{timeStr}</p>
+              <p className="text-xs mt-1 text-teal-500 font-semibold">{period}</p>
             </div>
           </div>
         </div>
@@ -151,6 +152,7 @@ const RightPanel: React.FC<RightPanelProps> = ({ isOpen, setIsOpen }) => {
         </div>
       </div>
     </aside>
+  </>
   );
 };
 

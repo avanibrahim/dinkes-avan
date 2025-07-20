@@ -1,11 +1,13 @@
 // src/App.tsx
 import React, { Suspense, lazy, useState } from "react";
+import ScrollToTop from "./components/ScrollToTop";
+import LoadingFallback from "@/components/LoadingFallback";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import clsx from "clsx";
-import { Menu, X, ArrowLeft, ArrowRight } from "lucide-react";
+import { Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 import Sidebar from "@/components/Sidebar";
 import RightPanel from "@/components/RightPanel";
@@ -35,52 +37,50 @@ const App: React.FC = () => {
       <TooltipProvider>
         <Toaster />
         <BrowserRouter>
+          <ScrollToTop />
           <div className="flex min-h-screen">
-            {/* Sidebar kiri */}
-            <Sidebar
-              mobileOpen={mobileOpen}
-              setMobileOpen={setMobileOpen}
-            />
+            <Sidebar mobileOpen={mobileOpen} setMobileOpen={setMobileOpen} />
 
-            {/* Konten utama */}
             <div
               className={clsx(
                 "flex-1 flex flex-col overflow-auto pt-16 md:pt-0",
                 collapsed ? "md:pl-20" : "md:pl-[0rem]"
               )}
             >
-              {/* Mobile top bar: fixed, always visible saat scroll */}
-              <div className="md:hidden fixed top-0 left-0 right-0 flex items-center justify-between p-4 bg-teal-600 z-50">
-                {/* Toggle sidebar */}
+              <div
+                className="
+                  md:hidden fixed top-0 left-0 right-0
+                  flex items-center justify-between
+                  px-3 py-2 sm:px-4 sm:py-3
+                  bg-teal-600 z-50
+                "
+              >
                 <button onClick={() => setMobileOpen(!mobileOpen)}>
                   {mobileOpen ? (
-                    <X className="w-6 h-6 text-white" />
+                    <X className="w-9 h-9 text-white" />
                   ) : (
-                    <Menu className="w-6 h-6 text-white" />
+                    <Menu className="w-9 h-9 text-white" />
                   )}
                 </button>
 
-                {/* Logo di tengah */}
                 <div className="flex-1 flex justify-center">
                   <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/d/de/Logo_of_the_Ministry_of_Health_of_the_Republic_of_Indonesia.png"
+                    src="img/mobilel.png"
                     alt="Logo"
-                    className="w-22 h-8"
+                    className="w-24 sm:w-28 h-auto"
                   />
                 </div>
 
-                {/* Toggle right panel */}
                 <button onClick={() => setRightOpen(!rightOpen)}>
                   {rightOpen ? (
-                    <ArrowRight className="w-6 h-6 text-white" />
+                    <ChevronRight className="w-8 h-8 text-white" />
                   ) : (
-                    <ArrowLeft className="w-6 h-6 text-white" />
+                    <ChevronLeft className="w-8 h-8 text-white" />
                   )}
                 </button>
               </div>
 
-              {/* Routing */}
-              <Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
+              <Suspense fallback={<LoadingFallback />}>
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/beranda" element={<Beranda />} />
@@ -96,13 +96,11 @@ const App: React.FC = () => {
                 </Routes>
               </Suspense>
 
-              {/* Footer: hanya tampil di mobile */}
               <div className="md:hidden">
                 <Footer />
               </div>
             </div>
 
-            {/* Right Panel */}
             <RightPanel isOpen={rightOpen} setIsOpen={setRightOpen} />
           </div>
         </BrowserRouter>

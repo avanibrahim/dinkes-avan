@@ -1,7 +1,8 @@
 import RightPanel from "@/components/RightPanel";
-import { Bell, Settings } from "lucide-react";
+import { Clock, UserCheck, Shield } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import Header from "@/components/Header";
+import DoctorContactSection from "@/components/DoctorContactSection";
 
 const container: Variants = {
   hidden: {},
@@ -44,85 +45,47 @@ export default function Contact() {
 
     {/* Judul Section */}
     <motion.section
-      className="text-[2rem] font-semibold mt-4"
+      className="text-xl font-semibold mb-4 mt-4"
       variants={fadeUp}
     >
       Kontak Kami
     </motion.section>
 
     {/* Form dan Info Kontak */}
-    <motion.section
-      className="mt-4 bg-gray-100 border border-gray-300 p-6 rounded-2xl"
-      variants={fadeUp}
-    >
-      <form className="space-y-5">
-        <div>
-          <label htmlFor="name" className="block text-gray-800 mb-1">
-            Nama
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Nama Anda"
-            className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-          />
-        </div>
-        <div>
-          <label htmlFor="email" className="block text-gray-800 mb-1">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email Anda"
-            className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-          />
-        </div>
-        <div>
-          <label htmlFor="subject" className="block text-gray-800 mb-1">
-            Subjek
-          </label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            placeholder="Subjek Pesan"
-            className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-          />
-        </div>
-        <div>
-          <label htmlFor="message" className="block text-gray-800 mb-1">
-            Pesan
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            rows={5}
-            placeholder="Tulis pesan Anda..."
-            className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-teal-500 hover:bg-teal-600 text-white px-6 py-3 rounded-lg font-medium"
-        >
-          Kirim Pesan
-        </button>
-      </form>
+    <DoctorContactSection />
 
-      <div className="mt-8 space-y-1">
-        <h3 className="text-lg font-semibold text-gray-800 mb-2">
-          Dinas Kesehatan
-        </h3>
-        <p className="text-gray-600">
-          Jl. Contoh No. 123, Kota Gorontalo, Indonesia
-        </p>
-        <p className="text-gray-600">Telp: (021) 1234-5678</p>
-        <p className="text-gray-600">Email: contact@edinkesdiagnosa.id</p>
+     {/* Unified Feature Box */}
+     <motion.section
+  className="mt-6 bg-gray-50 p-6 rounded-2xl shadow-inner max-w-4xl mx-auto"
+  variants={fadeUp}
+>
+  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
+    <div className="flex items-center space-x-2">
+      <Clock className="w-6 h-6 text-green-500" />
+      <div>
+        <h4 className="text-sm font-semibold text-gray-800">Konsultasi 24/7</h4>
+        <p className="text-xs text-gray-600">Layanan selalu tersedia</p>
       </div>
-    </motion.section>
+    </div>
+    <div className="flex items-center space-x-2">
+      <UserCheck className="w-6 h-6 text-teal-500" />
+      <div>
+        <h4 className="text-sm font-semibold text-gray-800">Dokter Bersertifikat</h4>
+        <p className="text-xs text-gray-600">Tenaga medis berlisensi</p>
+      </div>
+    </div>
+    <div className="flex items-center space-x-2">
+      <Shield className="w-6 h-6 text-blue-500" />
+      <div>
+        <h4 className="text-sm font-semibold text-gray-800">Privasi Terjamin</h4>
+        <p className="text-xs text-gray-600">Data Anda aman</p>
+      </div>
+    </div>
+  </div>
+</motion.section>
+
+
+
   </motion.main>
 
   {/* Right Panel */}
