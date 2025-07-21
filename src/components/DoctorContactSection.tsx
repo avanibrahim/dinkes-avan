@@ -58,10 +58,10 @@ const DoctorContactSection: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedDoctor) return;
-    const msg = `Halo ${selectedDoctor.name},%0A` +
-                `Saya pasien ${formData.patientName}.%0A` +
-                `Diagnosa Penyakit: ${formData.illness}.%0A` +
-                `Keluhan: ${formData.notes}`;
+    const msg = `Halo ${selectedDoctor.name}.%0A` +
+                `Saya pasien ${formData.patientName},%0A` +
+                `Dengan Diagnosa Penyakit : ${formData.illness}.%0A` +
+                `Keluhan yang saya rasakan saat ini adalah ${formData.notes}`;
     window.open(`https://wa.me/${selectedDoctor.number}?text=${msg}`, "_blank");
     setShowForm(false);
     setFormData({ patientName: "", illness: "", notes: "" });

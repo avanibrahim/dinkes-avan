@@ -133,10 +133,10 @@ export default function DbdDiagnosis() {
         {/* Diagnosis Flow */}
          <motion.section className="mt-[1.5rem]" variants={fadeUp}>
          <div className="flex items-center justify-between w-full mb-4">
-                         <h2 className="text-xl font-semibold mb-0">
-                             Diagnosa Penyakit DBD
-                         </h2>
-                         <motion.button
+            <h2 className="text-xl font-semibold mb-0">
+                Diagnosa Penyakit DBD
+            </h2>
+          <motion.button
                    onClick={() => window.location.reload()}
                    className="flex items-center gap-2  bg-gradient-to-br from-teal-500 to-cyan-600 text-white px-3 py-1 rounded"
                    whileTap={{ scale: 0.95 }}
