@@ -1,7 +1,7 @@
 import React from 'react';
 
 const FooterWithWave: React.FC = () => (
-  <footer className="relative bg-[#229b94] text-white pt-8">
+  <footer className="relative bg-[#0d9488] text-white pt-8">
   {/* 1. Gelombang di atas footer */}
   <div
       className="absolute top-0 left-0 w-full overflow-hidden"
