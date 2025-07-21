@@ -1,32 +1,33 @@
-import React from "react";
-import { Construction } from "lucide-react";
+import { motion } from "framer-motion";
 
-const UnderMaintenancePage = () => {
+export default function NotFound() {
   return (
-    <section className="min-h-screen flex items-center justify-center px-6 py-16 bg-gradient-to-b from-[#e6f7f9] to-white text-center">
-      <div className="max-w-lg w-full space-y-8">
-        {/* Judul */}
-        <h1 className="text-3xl md:text-4xl font-bold text-[#229b94] flex flex-col justify-center items-center gap-4">
-          <Construction className="w-12 h-12 text-black" />
-          404 Not-Found
-        </h1>
-
-
+    <section className="min-h-screen flex items-start lg:items-center justify-center pl-6 pr-6 lg:pr-[20.5rem] py-20 bg-gradient-to-br from-[#e6f7f9] to-white">
+      <div className="w-full max-w-lg bg-white/90 rounded-[2rem] shadow-2xl border border-[#b2e4e1] flex flex-col items-center px-8 py-6 space-y-8">
+        {/* Ilustrasi animasi */}
+        <h1 className="text-3xl md:text-4xl font-extrabold text-[#229b94] mb-2 tracking-tight text-center">-404- <br />Maintenance Page</h1>
+        <motion.img
+          src="/img/doctor-404.svg"
+          alt="Dokter lucu"
+          className="w-44 h-44 object-contain mb-2 drop-shadow-lg"
+        />
+        {/* Headline */}
         {/* Deskripsi */}
-        <p className="text-gray-700 text-sm md:text-base">
-          Anda Telah melewati batas dari website ini. Halaman yang Anda cari tidak ditemukan, Mohon maaf atas ketidaknyamanan ini.
+        <p className="text-gray-600 text-base md:text-[1rem] text-center leading-relaxed">
+          Halaman yang kamu cari sedang dalam pengembangan.<br/>
+          Yuk kembali ke halaman utama!
         </p>
-
         {/* Tombol kembali */}
         <a
           href="/"
-          className="inline-block mt-4 px-6 py-3 bg-[#229b94] hover:bg-[#229b94] text-white font-semibold rounded-lg transition"
+          className="group inline-flex items-center gap-2 mt-2 px-7 py-3 bg-[#229b94] hover:bg-[#14766d] text-white font-bold rounded-xl shadow transition-all duration-150 hover:-translate-y-1"
         >
+          <svg className="w-5 h-5 group-hover:-translate-x-1 transition" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
           Kembali ke Beranda
         </a>
       </div>
     </section>
   );
-};
-
-export default UnderMaintenancePage;
+}

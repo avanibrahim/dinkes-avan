@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { CalendarDays, Clock, X } from "lucide-react";
 import clsx from "clsx";
 
+
 export interface RightPanelProps {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
@@ -130,6 +131,7 @@ const RightPanel: React.FC<RightPanelProps> = ({ isOpen, setIsOpen }) => {
               className="flex items-center gap-2 bg-gradient-to-tr from-teal-500 to-cyan-500 hover:from-cyan-500 hover:to-teal-500 text-white font-semibold rounded-xl shadow-md px-4 py-2 transition-all w-full max-w-[180px] justify-center"
               aria-label="Scan QR"
               type="button"
+              onClick={() => window.location.href = '/notfound'}
             >
               <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" className="inline-block">
                 <rect x="3" y="3" width="16" height="16" rx="3" />
@@ -137,6 +139,7 @@ const RightPanel: React.FC<RightPanelProps> = ({ isOpen, setIsOpen }) => {
               </svg>
               <span className="text-sm font-medium">Mulai Scan</span>
             </button>
+
           </div>
         </div>
                 

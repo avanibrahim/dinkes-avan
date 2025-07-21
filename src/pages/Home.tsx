@@ -201,7 +201,7 @@ export default function Home() {
                       <button
                         className="
                           w-full sm:w-auto
-                          text-[0.65rem] sm:text-sm
+                          text-[0.55rem] sm:text-sm
                           bg-gray-100 text-gray-700
                           px-2 sm:px-4
                           py-1 sm:py-2

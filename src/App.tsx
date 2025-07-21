@@ -5,9 +5,10 @@ import LoadingFallback from "@/components/LoadingFallback";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import clsx from "clsx";
 import { Menu, X, ChevronLeft, ChevronRight } from "lucide-react";
+
 
 import Sidebar from "@/components/Sidebar";
 import RightPanel from "@/components/RightPanel";
@@ -64,12 +65,20 @@ const App: React.FC = () => {
                 </button>
 
                 <div className="flex-1 flex justify-center">
-                  <img
-                    src="img/mobilel.png"
-                    alt="Logo"
-                    className="w-24 sm:w-28 h-auto"
-                  />
+                  <button
+                    onClick={() => window.location.href = "/"}
+                    className="focus:outline-none"
+                    aria-label="Ke Beranda"
+                    type="button"
+                  >
+                    <img
+                      src="img/mobilel.png"
+                      alt="Logo"
+                      className="w-24 sm:w-28 h-auto"
+                    />
+                  </button>
                 </div>
+
 
                 <button onClick={() => setRightOpen(!rightOpen)}>
                   {rightOpen ? (

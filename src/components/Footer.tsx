@@ -20,24 +20,38 @@ const FooterWithWave: React.FC = () => (
       </svg>
     </div>
 
-    <div className="max-w-7xl mx-auto pt-8 pb-4 px-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+    <div className="max-w-7xl mx-auto pt-8 pb-8 px-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Column 1: Location & Map */}
         <div>
           <h3 className="text-lg font-semibold mb-2">Alamat :</h3>
           <p className="text-sm mb-3 leading-relaxed">
             Jalan Jamaludin Malik No.52, Kota Selatan, Limba U Dua,
-            Gorontalo, Kota Gorontalo, Gorontalo 96138
+            Gorontalo, Kota Gorontalo, Gorontalo 96138.
           </p>
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4124.700282530758!2d123.05812650000001!3d0.5499508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32792b3fb13f6fed%3A0x7db7e50aaa135582!2sDinas%20Kesehatan%20Kota%20Gorontalo!5e1!3m2!1sid!2sid!4v1750848918433!5m2!1sid!2sid"
-            width="100%"
-            height="140"
-            style={{ border: 0 }}
-            allowFullScreen={false}
-            loading="lazy"
-            className="rounded-lg shadow"
-          />
+          <div className="flex items-center gap-4 p-2">
+
+            <div className="bg-gradient-to-br from-gray-500 to-teal-600 rounded-full p-2">
+              {/* Location Icon */}
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21c4-4.5 8-8.5 8-12a8 8 0 1 0-16 0c0 3.5 4 7.5 8 12z" />
+                <circle cx="12" cy="9" r="2.5" />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <div className="font-bold text-gray-100 text-sm">Dinas Kesehatan Kota Gorontalo</div>
+              <div className="text-xs text-gray-100">Jl. HB Jassin, Kota Gorontalo</div>
+              <a
+                href="https://www.google.com/maps?ll=0.549951,123.058127&z=15&t=m&hl=id&gl=ID&mapclient=embed&cid=9058961009444869506"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block mt-2 text-xs font-semibold text-gray-100 underline hover:text-teal-600 transition"
+              >
+                Lihat di Google Maps
+              </a>
+            </div>
+          </div>
+
         </div>
 
         {/* Column 2: Contact & Links */}
@@ -57,8 +71,12 @@ const FooterWithWave: React.FC = () => (
             Tautan Terkait
           </h3>
           <div className="flex flex-wrap gap-3 text-sm">
-            <a href="/tentang">Tentang</a>
+            <a 
+            className='text-gray-100 hover:text-gray-600 transition border-b'
+            href="/tentang">Tentang
+            </a>
             <a
+              className='text-gray-100 hover:text-gray-600 transition border-b'
               href="https://sehatnegeriku.kemkes.go.id/"
               target="_blank"
               rel="noopener noreferrer"
@@ -66,7 +84,8 @@ const FooterWithWave: React.FC = () => (
               Kemenkes
             </a>
             <a
-              href="https://www.who.int/id"
+              className='text-gray-100 hover:text-gray-600 transition border-b'
+              href="https://www.who.int"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -96,8 +115,8 @@ const FooterWithWave: React.FC = () => (
                 url: '#',
               },
               {
-                name: 'YouTube',
-                icon: 'https://images.icon-icons.com/134/PNG/512/youtube_socialnetwork_20660.png',
+                name: 'Email',
+                icon: 'https://images.icon-icons.com/134/PNG/96/email_socialnetwork_20692.png',
                 url: '#',
               },
             ].map(social => (
