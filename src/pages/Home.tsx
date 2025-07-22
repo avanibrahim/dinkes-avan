@@ -223,18 +223,36 @@ export default function Home() {
         {/* Hospital Map */}
         <motion.section className="mt-[1.5rem]" variants={fadeUp}>
         <h2 className="text-lg sm:text-xl font-semibold mb-4">Nearby Hospital</h2>
-          <div className="rounded-[1.5rem] overflow-hidden shadow-xl border border-gray-200">
+        <div className="relative w-full rounded-3xl shadow-lg border border-gray-200 overflow-hidden group">
+            {/* Iframe Maps */}
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.6345302060736!2d123.05812650000001!3d0.5499508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32792b3fb13f6fed%3A0x7db7e50aaa135582!2sDinas%20Kesehatan%20Kota%20Gorontalo!5e0!3m2!1sid!2sid!4v1752584916259!5m2!1sid!2sid"
-              className="w-full h-48 sm:h-64"
+              src="https://www.google.com/maps/embed?pb=...."
+              className="w-full h-60 sm:h-80"
               style={{
                 border: 0,
-                filter:
-                  "grayscale(15%) brightness(105%) contrast(98%) saturate(90%)",
+                filter: "grayscale(17%) brightness(110%) contrast(96%) saturate(95%)",
+                borderRadius: "inherit",
+               // biar tidak kegeser saat scroll
               }}
               loading="lazy"
               allowFullScreen
+              aria-label="Lokasi Dinas Kesehatan Kota Gorontalo"
             />
+            {/* Glassmorphism Overlay */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center w-[92vw] sm:w-auto max-w-[98vw]">
+              <div className="backdrop-blur-md bg-white/70 px-3 py-1 rounded-full shadow font-semibold text-teal-700 mb-2 text-xs sm:text-base sm:px-6 sm:py-2 whitespace-nowrap">
+                Dinas Kesehatan Kota Gorontalo
+              </div>
+              <a
+                href="https://maps.google.com/?q=Dinas+Kesehatan+Kota+Gorontalo"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-4 py-1.5 rounded-full bg-teal-500 text-white font-medium shadow hover:bg-teal-600 transition text-xs sm:text-base sm:px-5 sm:py-2"
+              >
+                Lihat di Google Maps
+              </a>
+            </div>
+
           </div>
         </motion.section>
       </motion.main>

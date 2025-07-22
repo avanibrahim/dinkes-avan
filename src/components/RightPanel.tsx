@@ -131,7 +131,7 @@ const RightPanel: React.FC<RightPanelProps> = ({ isOpen, setIsOpen }) => {
               className="flex items-center gap-2 bg-gradient-to-tr from-teal-500 to-cyan-500 hover:from-cyan-500 hover:to-teal-500 text-white font-semibold rounded-xl shadow-md px-4 py-2 transition-all w-full max-w-[180px] justify-center"
               aria-label="Scan QR"
               type="button"
-              onClick={() => window.location.href = '/notfound'}
+              onClick={() => window.location.href = '/scanqr'}
             >
               <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" className="inline-block">
                 <rect x="3" y="3" width="16" height="16" rx="3" />

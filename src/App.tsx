@@ -14,7 +14,7 @@ import Sidebar from "@/components/Sidebar";
 import RightPanel from "@/components/RightPanel";
 import Footer from "@/components/Footer";
 import Diagnosis from "./pages/Diagnosis";
-import LoadingScreen from "@/components/LoadingScreen";
+
 
 const Index = lazy(() => import("./pages/Index"));
 const Beranda = lazy(() => import("./pages/Beranda"));
@@ -33,6 +33,7 @@ const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [rightOpen, setRightOpen] = useState(false);
+  
 
   return (
     <QueryClientProvider client={queryClient}>
