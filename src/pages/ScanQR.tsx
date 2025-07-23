@@ -1,4 +1,3 @@
-// src/ScanQR.tsx
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import JSARuco from "js-aruco";
@@ -26,6 +25,11 @@ export default function ScanQR() {
     }
     const detector = new DetectorClass();
 
+    // Set threshold untuk meningkatkan akurasi deteksi
+    if (detector.setThreshold) {
+      detector.setThreshold(128); // Nilai threshold dapat disesuaikan
+    }
+
     // 2) Siapkan canvas tersembunyi untuk deteksi
     const detectCanvas = document.createElement("canvas");
     const detectCtx = detectCanvas.getContext("2d")!;
@@ -52,6 +56,9 @@ export default function ScanQR() {
         const imageData = detectCtx.getImageData(0, 0, w, h);
         const markers = detector.detect(imageData);
 
+        // Debugging: log jumlah marker yang terdeteksi
+        console.log(`Markers detected: ${markers.length}`);
+
         // siapkan overlay canvas
         overlay.width = w;
         overlay.height = h;
@@ -59,7 +66,7 @@ export default function ScanQR() {
         ctx.clearRect(0, 0, w, h);
 
         // gambar overlay untuk tiap marker (Hiro = kotak 4 titik)
-        markers.forEach((marker: any) => {
+        markers.forEach((marker: any, index: number) => {
           if (marker.corners?.length === 4) {
             // outline hijau
             ctx.strokeStyle = "lime";
@@ -80,6 +87,11 @@ export default function ScanQR() {
             const size = Math.min(w, h) * 0.2;
             ctx.fillStyle = "rgba(255,0,0,0.5)";
             ctx.fillRect(cx - size / 2, cy - size / 2, size, size);
+
+            // Tambahkan label ID marker
+            ctx.fillStyle = "white";
+            ctx.font = "16px Arial";
+            ctx.fillText(`ID: ${marker.id || index}`, cx - size / 2, cy - size / 2 - 10);
           }
         });
       }
@@ -126,10 +138,10 @@ export default function ScanQR() {
 
   // === UI kamera PERSIS seperti awal, + overlay canvas untuk AR ===
   return (
-    <div className=" w-screen h-screen bg-black">
+    <div className="w-screen h-screen bg-black relative">
       <video
         ref={videoRef}
-        className=" inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover"
         muted
         playsInline
         autoPlay
